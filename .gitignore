@@ -6,3 +6,5 @@ dist/
 !.env.example
 public/catalog.json.tmp
 
+.vercel
+.env*
