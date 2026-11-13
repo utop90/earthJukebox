@@ -1,0 +1,47 @@
+[
+  {
+    "credit": "NASA's Scientific Visualization Studio · Kel Elkins",
+    "publishedAt": "2026-10-27",
+    "updatedAt": "2026-11-12",
+    "category": "Océanos",
+    "id": "5688",
+    "title": "El Pacífico: temperatura del océano",
+    "description": "Dos globos comparan las anomalías de temperatura superficial del Pacífico en 2025 y 2026. NASA actualiza esta visualización diariamente.",
+    "videoFilename": "elnino_eic_ssta_globes_wLegend_3340x1670_latest.mp4",
+    "posterFilename": "elnino_eic_ssta_globes_wLegend_1670x835_latest.jpg",
+    "resolution": "3340 × 1670",
+    "sizeLabel": "≈ 16,1 MB",
+    "updatesDaily": true,
+    "pageUrl": "https://svs.gsfc.nasa.gov/5688/"
+  },
+  {
+    "credit": "NASA's Scientific Visualization Studio · Kel Elkins",
+    "publishedAt": "2026-10-27",
+    "updatedAt": "2026-11-12",
+    "category": "Océanos",
+    "id": "5687",
+    "title": "Los colores del océano con PACE",
+    "description": "Una comparación visual del color aparente del océano en 2025 y 2026 a partir de PACE. NASA incorpora nuevos datos diariamente.",
+    "videoFilename": "elnino_avw_2025_2026_daily_1900x800.mp4",
+    "posterFilename": "elnino_avw_2025_2026_daily_1900x800.jpg",
+    "resolution": "1800 × 900",
+    "sizeLabel": "≈ 8,6 MB",
+    "updatesDaily": true,
+    "pageUrl": "https://svs.gsfc.nasa.gov/5687/"
+  },
+  {
+    "credit": "NASA's Scientific Visualization Studio · Kel Elkins",
+    "publishedAt": "2026-10-20",
+    "updatedAt": "2026-10-20",
+    "category": "Sistema solar",
+    "id": "5674",
+    "title": "Un viaje por el sistema solar",
+    "description": "Un recorrido que comienza junto a la Tierra y se aleja hacia los planetas más distantes. Creado para las pantallas panorámicas del Earth Information Center.",
+    "videoFilename": "solar_system_EIC_3840x1080.mp4",
+    "posterFilename": "solar_system.Still004_preview.jpg",
+    "resolution": "3840 × 1080",
+    "sizeLabel": "48,4 MB",
+    "updatesDaily": false,
+    "pageUrl": "https://svs.gsfc.nasa.gov/5674/"
+  }
+]

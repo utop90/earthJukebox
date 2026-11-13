@@ -57,9 +57,7 @@ Las fixtures HTML son sintéticas; no sustituyen una ejecución real contra NASA
 ## Estado de verificación en este entorno
 
 La terminal devolvió ENOTFOUND para registry.npmjs.org y svs.gsfc.nasa.gov.
-La instalación y el importador en vivo están bloqueados por DNS. Por ello aún no se han validado
-el build ni la interfaz en navegador. Ejecutar instalación, importación y build al disponer de red.
-No hay lockfile generado ni se han descargado paquetes correctamente.
+La instalación inicial estuvo bloqueada por DNS. En la revisión posterior las dependencias ya estaban disponibles: npm test pasó 7 pruebas y npm run build compiló correctamente. La reproducción en navegador y la importación en vivo siguen pendientes de verificación.
 
 ## Vídeos y siguiente etapa
 

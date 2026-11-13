@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-13",
+  "importMode": "manually-verified-source-links",
+  "videos": [
+    {
+      "id": "5505",
+      "title": "La corriente de Agulhas",
+      "category": "Océanos",
+      "description": "Una mirada a los trazos y remolinos de las corrientes junto al sur de África. Visualización preparada para el Hyperwall del Earth Information Center.",
+      "pageUrl": "https://svs.gsfc.nasa.gov/5505/",
+      "credit": "NASA's Scientific Visualization Studio",
+      "resolution": "3840 × 1080",
+      "sizeLabel": "178,4 MB",
+      "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005505/OceanFlows_AgulhasCurrent_3840x1080.mp4",
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005505/OceanFlows_3840x108030fps.png"
+    },
+    {
+      "id": "4950",
+      "title": "Los bosques, en otra dimensión",
+      "category": "Bosques",
+      "description": "Explora la altura de la vegetación terrestre a través de la visualización global de GEDI, un instrumento a bordo de la Estación Espacial Internacional.",
+      "pageUrl": "https://svs.gsfc.nasa.gov/4950/",
+      "credit": "NASA's Scientific Visualization Studio",
+      "resolution": "1920 × 1080",
+      "sizeLabel": "17,7 MB",
+      "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/GEDI_global_w_colorbar_1080p60.mp4",
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/GEDI_global_w_colorbar_0900_print.jpg"
+    },
+    {
+      "id": "4993",
+      "title": "El recorrido del incendio Dixie",
+      "category": "Incendios",
+      "description": "Una secuencia de detecciones por satélite muestra cómo avanzó el incendio Dixie en California durante 2021. Observa sus contornos y patrones espaciales.",
+      "pageUrl": "https://svs.gsfc.nasa.gov/4993/",
+      "credit": "NASA's Scientific Visualization Studio",
+      "resolution": "1920 × 1080",
+      "sizeLabel": "172,9 MB",
+      "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021_p30_1080p30.mp4",
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021.7135_print.jpg"
+    }
+  ]
+}
