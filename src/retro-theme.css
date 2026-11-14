@@ -15,10 +15,14 @@
 .landing-header, .topbar { border-bottom-color: #b3a4ff32; }
 .jukebox-wordmark {
   font: 800 clamp(12px, 1.7vw, 18px)/1 var(--retro-display);
-  letter-spacing: .075em;
+  letter-spacing: .09em;
   text-transform: uppercase;
   color: #f7f2ff;
-  text-shadow: 1px 1px #5279d4, 2px 2px #7f55bf;
+  background: linear-gradient(180deg, #ffffff 18%, #e6daff 62%, #cdb8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(1px 1px 0 #5279d4) drop-shadow(2px 2px 0 #7f55bf) drop-shadow(0 3px 5px #1b1043aa);
 }
 .jukebox-logo {
   position: relative;
@@ -27,26 +31,45 @@
   flex: 0 0 28px;
   width: 28px;
   height: 34px;
-  border: 2px solid var(--retro-blue);
-  border-bottom-color: var(--retro-purple);
-  border-radius: 14px 14px 4px 4px;
-  background: linear-gradient(160deg,#263d76,#241436);
-  box-shadow: 0 0 11px #9bb8ff52, inset 0 0 0 2px #100d22;
+  border: 2px solid transparent;
+  border-radius: 15px 15px 5px 5px;
+  background:
+    linear-gradient(160deg, #263d76, #241436) padding-box,
+    linear-gradient(165deg, #9bb8ff, #c0a0ff 55%, #ff83c8) border-box;
+  box-shadow:
+    0 0 10px #9bb8ff66,
+    0 0 22px #c0a0ff33,
+    inset 0 0 0 2px #100d22,
+    inset 0 -8px 14px #05031480;
+}
+.jukebox-logo::before {
+  content: "";
+  position: absolute;
+  inset: 2px 2px auto;
+  height: 17px;
+  border-radius: 12px 12px 0 0;
+  background: radial-gradient(90% 120% at 50% 115%, #ff83c83d, transparent 68%);
 }
 .jukebox-logo-record {
   position: absolute;
   top: 5px;
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   border: 1px solid #e1d5ff;
   border-radius: 50%;
-  background: repeating-radial-gradient(circle,#dfc8ff 0 1px,#45306e 2px 3px);
+  background:
+    radial-gradient(circle, #ff83c8 0 2px, #2a1a4e 2px 3px, transparent 3px),
+    conic-gradient(from 220deg, #ffffff47, transparent 30%, #ffffff26 55%, transparent 72%),
+    repeating-radial-gradient(circle, #dfc8ff 0 1px, #45306e 2px 3px);
+  box-shadow: 0 0 6px #c0a0ff59;
 }
 .jukebox-logo-grille {
   position: absolute;
-  inset: 17px 5px 4px;
-  border-top: 1px solid var(--retro-purple);
-  background: repeating-linear-gradient(90deg,#b28af4 0 1px,transparent 1px 3px);
+  inset: 18px 5px 4px;
+  border-top: 1px solid #ff83c866;
+  background:
+    radial-gradient(60% 100% at 50% 0%, #ff83c833, transparent),
+    repeating-linear-gradient(90deg, #b28af4aa 0 1px, transparent 1px 3px);
   border-radius: 2px;
 }
 .landing-copy h1, .planet-heading h1 {
