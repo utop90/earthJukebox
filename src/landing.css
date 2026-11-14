@@ -364,8 +364,55 @@
   .about-dialog-content { padding: 20px 20px 28px; }
 }
 
-.landing-final-cta {
-  padding: 64px 0 72px;
+.landing-sounds {
+  position: relative;
+  padding: 24px 0 8px;
+  text-align: center;
+}
+.landing-sounds h2 {
+  margin: 0 0 24px;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.18;
+  letter-spacing: -.045em;
+  font-weight: 600;
+}
+.landing-sounds-list {
+  list-style: none;
+  max-width: 760px;
+  margin: 44px auto 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+  text-align: left;
+}
+.landing-sound {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 340px);
+  align-items: center;
+  gap: 24px;
+  padding: 24px 28px;
+  border: 1px solid var(--landing-line);
+  border-radius: 18px;
+  background: #0d151a;
+}
+.landing-sound h3 { margin: 0 0 10px; font-size: 19px; letter-spacing: -.02em; }
+.landing-sound p { margin: 0; color: var(--landing-muted); font-size: 14.5px; line-height: 1.7; }
+.landing-sound audio { width: 100%; min-width: 0; }
+.landing-sounds-video { max-width: 760px; margin: 26px auto 0; }
+.landing-sounds-video video {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--landing-line);
+  border-radius: 18px;
+  background: #000;
+}
+.landing-sounds-video figcaption { margin-top: 10px; color: var(--landing-muted); font-size: 13px; }
+.landing-sounds-credit { max-width: 760px; margin: 18px auto 0; color: var(--landing-muted); font-size: 12.5px; line-height: 1.7; }
+@media (max-width: 640px) {
+  .landing-sound { grid-template-columns: 1fr; gap: 14px; padding: 22px; }
+}
+
+.landing-final-cta { padding: 64px 0 72px;
   text-align: center;
   background: radial-gradient(ellipse at center, #9bb8ff07, transparent 65%);
 }

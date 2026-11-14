@@ -55,6 +55,8 @@ function HeroIllustration({ paused }: { paused: boolean }) {
 
 const eicGalleryUrl = 'https://svs.gsfc.nasa.gov/gallery/earth-information-center/';
 const forestHeightMediaUrl = 'https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/';
+const earthSongPosterUrl = 'https://svs.gsfc.nasa.gov/vis/a010000/a011000/a011073/pf-1024.jpg';
+const earthSongVideoUrl = 'https://svs.gsfc.nasa.gov/vis/a010000/a011000/a011073/Earthsong-540-MASTER_high.mp4';
 
 const landingCopy = {
   en: {
@@ -148,6 +150,15 @@ const landingCopy = {
     soundDescription: 'Sonification connects features such as brightness to musical notes. Choose a point on the map to hear how the patterns in its video sound.',
     curiosityTitle: 'Follow your curiosity',
     curiosityDescription: 'Choose a topic, play a visualisation and take a closer look. Read the description and visit its source to understand what the colours, shapes and movement represent.',
+    soundsLabel: 'Sounds of Earth',
+    soundsTitle: 'NASA recordings, ready to play.',
+    soundsIntro: 'Real audio captured by NASA missions: our planet singing, and the roar of leaving it. Press play and listen.',
+    soundsTracks: [
+      { title: "Earth's chorus", desc: 'Very low frequency radio waves captured by the EMFISIS antennas on the twin Van Allen Probes, September 2012.', file: 'audio/nasa-chorus.mp3' },
+      { title: 'Liftoff', desc: 'The roar of a launch, from the NASA audio archive.', file: 'audio/nasa-liftoff.mp3' },
+    ],
+    soundsVideoLabel: "Earth's Song — Science@NASA / NASA SVS 11073",
+    soundsCredit: 'Audio courtesy of NASA (Van Allen Probes EMFISIS; NASA audio archive). Video: Science@NASA and NASA’s Goddard Space Flight Center.',
     readyTitle: 'Ready to explore?',
     readyDescription: 'Dive into a curated collection of scientific visualisations and discover the pulse of our planet.',
     footerDescription: 'A multisensory exploration of Earth',
@@ -254,6 +265,15 @@ const landingCopy = {
     soundDescription: 'La sonificación conecta características como el brillo con notas musicales. Elige un punto del mapa para escuchar cómo suenan los patrones de su vídeo.',
     curiosityTitle: 'Sigue tu curiosidad',
     curiosityDescription: 'Elige un tema, reproduce una visualización y obsérvala de cerca. Lee la descripción y visita su fuente para entender qué representan sus colores, formas y movimientos.',
+    soundsLabel: 'Sonidos de la Tierra',
+    soundsTitle: 'Grabaciones de la NASA, listas para escuchar.',
+    soundsIntro: 'Audio real captado por misiones de la NASA: nuestro planeta cantando y el rugido de abandonarlo. Dale al play y escucha.',
+    soundsTracks: [
+      { title: 'El coro de la Tierra', desc: 'Ondas de radio de muy baja frecuencia captadas por las antenas EMFISIS de las sondas Van Allen, septiembre de 2012.', file: 'audio/nasa-chorus.mp3' },
+      { title: 'Liftoff (despegue)', desc: 'El rugido de un lanzamiento, del archivo de audio de la NASA.', file: 'audio/nasa-liftoff.mp3' },
+    ],
+    soundsVideoLabel: 'La canción de la Tierra — Science@NASA / NASA SVS 11073',
+    soundsCredit: 'Audio: cortesía de la NASA (sondas Van Allen, EMFISIS; archivo de audio de la NASA). Vídeo: Science@NASA y el Goddard Space Flight Center de la NASA.',
     readyTitle: '¿Listo para explorar?',
     readyDescription: 'Adéntrate en una colección seleccionada de visualizaciones científicas y descubre el pulso de nuestro planeta.',
     footerDescription: 'Una exploración multisensorial de la Tierra',
@@ -352,6 +372,26 @@ export default function Landing({ exploreUrl, language, onLanguageChange }: {
             <p>{copy.curiosityDescription}</p>
           </article>
         </div>
+      </section>
+      <section className="landing-sounds" aria-labelledby="sounds-title">
+        <p className="landing-section-label">{copy.soundsLabel}</p>
+        <h2 id="sounds-title">{copy.soundsTitle}</h2>
+        <p className="landing-section-copy">{copy.soundsIntro}</p>
+        <ul className="landing-sounds-list">
+          {copy.soundsTracks.map(track => <li key={track.file} className="landing-sound">
+            <div>
+              <h3>{track.title}</h3>
+              <p>{track.desc}</p>
+            </div>
+            <audio controls preload="none" src={`${import.meta.env.BASE_URL}${track.file}`}></audio>
+          </li>)}
+        </ul>
+        <figure className="landing-sounds-video">
+          <video controls playsInline preload="none" aria-label={copy.soundsVideoLabel}
+            poster={earthSongPosterUrl} src={earthSongVideoUrl} />
+          <figcaption>{copy.soundsVideoLabel}</figcaption>
+        </figure>
+        <p className="landing-sounds-credit">{copy.soundsCredit}</p>
       </section>
       <section className="landing-final-cta" aria-labelledby="ready-title">
         <h2 id="ready-title">{copy.readyTitle}</h2>
