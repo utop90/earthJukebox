@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { useEffect, useState } from 'react';
-import App from './App';
-import Landing from './Landing';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import LanguageSwitch, { type Language } from './LanguageSwitch';
 import './styles.css';
+import './retro-theme.css';
 
 const isExploring = new URLSearchParams(window.location.search).get('view') === 'explore';
+const App = lazy(() => import('./App'));
+const Landing = lazy(() => import('./Landing'));
 const exploreUrl = import.meta.env.BASE_URL + '?view=explore';
 const languageStorageKey = 'earth-jukebox-language';
 
@@ -29,9 +30,9 @@ function Root() {
     }
   }, [language]);
 
-  return isExploring
+  return <Suspense>{isExploring
     ? <App language={language} onLanguageChange={setLanguage} />
-    : <Landing exploreUrl={exploreUrl} language={language} onLanguageChange={setLanguage} />;
+    : <Landing exploreUrl={exploreUrl} language={language} onLanguageChange={setLanguage} />}</Suspense>;
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

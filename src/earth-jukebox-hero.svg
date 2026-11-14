@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="landing-illustration" viewBox="18 21 584 485" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="ejh-sea" cx=".29" cy=".22" r=".87">
+      <stop stop-color="#244477"/><stop offset=".59" stop-color="#21174d"/><stop offset="1" stop-color="#902461"/>
+    </radialGradient>
+    <linearGradient id="ejh-rim" x2=".9" y2="1">
+      <stop stop-color="#75f4fc"/><stop offset=".53" stop-color="#a080f4"/><stop offset="1" stop-color="#ff71c8" stop-opacity=".65"/>
+    </linearGradient>
+    <linearGradient id="ejh-metal" x2=".4" y2="1">
+      <stop stop-color="#535d76"/><stop offset=".23" stop-color="#3a425b"/><stop offset=".64" stop-color="#22263f"/><stop offset="1" stop-color="#15162c"/>
+    </linearGradient>
+    <linearGradient id="ejh-signal" x1="125" x2="495" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#83eaf4"/><stop offset="1" stop-color="#f28bd7"/>
+    </linearGradient>
+    <clipPath id="ejh-earth-clip"><circle cx="310" cy="278" r="204"/></clipPath>
+    <filter id="ejh-shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+    <filter id="ejh-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.5"/></filter>
+    <path id="ejh-band" d="M66 279C58 142 183 39 309 38c127-1 253 103 245 241"/>
+    <path id="ejh-left-shell" d="M103 237c21-4 37 12 42 35l11 65c4 23-7 44-26 49l-17 3c-20 3-34-13-38-33l-12-65c-4-24 6-45 25-50z"/>
+    <path id="ejh-right-shell" d="M517 237c-21-4-37 12-42 35l-11 65c-4 23 7 44 26 49l17 3c20 3 34-13 38-33l12-65c4-24-6-45-25-50z"/>
+    <path id="ejh-left-pad" d="M126 250c19 0 26 14 30 34l11 53c4 20-3 37-17 41l-10 3c-15 3-24-11-28-29l-11-57c-4-22 1-38 15-43z"/>
+    <path id="ejh-right-pad" d="M494 250c-19 0-26 14-30 34l-11 53c-4 20 3 37 17 41l10 3c15 3 24-11 28-29l11-57c4-22-1-38-15-43z"/>
+    <path id="ejh-wave" d="M130 312h71l12-8 12 16 13-27 14 41 14-47 14 38 13-17 13 4h8l13-4 13 17 14-38 14 47 14-41 13 27 12-16 12 8h71"/>
+    <radialGradient id="ejh-land" cx=".24" cy=".18" r=".92">
+      <stop stop-color="#8cd8e1"/><stop offset=".54" stop-color="#8476c9"/><stop offset="1" stop-color="#cf669f"/>
+    </radialGradient>
+    <pattern id="ejh-land-lines" width="12" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-16)">
+      <path d="M0 3h12" stroke="#e4ddff" stroke-opacity=".13" stroke-width=".65"/>
+    </pattern>
+    <mask id="ejh-land-mask" style="mask-type:alpha">
+      <use href="#ejh-rotating-land"/>
+    </mask>
+  </defs>
+
+  <g id="ejh-layer-earth">
+    <circle cx="310" cy="278" r="205" fill="url(#ejh-sea)" stroke="url(#ejh-rim)" stroke-width="2"/>
+    <g clip-path="url(#ejh-earth-clip)">
+      <!-- Simplified Atlantic-facing coastline silhouettes. -->
+      <g class="landing-land-fallback" fill="url(#ejh-land)">
+        <path d="M111 173l23-28 33-22 35-9 22 7 17-7 18 11-6 14-21 6-12 14 13 6 12-9 20 1 14 12-18 13-12 24-20 16-13 2-10 17-9-1-9-18-17-6-10 10 9 25 19 21 18 8 3 13-12 4-15-11-6-13-14-3-20-22-10-21-16-5-17-20-13-3-21-18z"/>
+        <path d="M218 296l13-11 20-4 16 10 17 4 14 14 21 8 7 14-10 17-19 7-8 22-14 10-3 23-13 13 2 25-12 14-16-28-4-21-11-25 4-23-13-24 2-19-10-15z"/>
+        <path d="M248 118l16-15 23-6 29 6 8 12-12 14-14 2-7 15-14 8-9-14-18-2z"/>
+        <path d="M281 84l40-9 33 4 10 11-8 18-15 9-11 23-13 7-2-18-13-11-11-4z"/>
+        <path d="M403 128l14-14 26 5 25 16 23 7 31 30-4 71-24 7-17-10-16 7-14-14-16-2-12-11-17 3-15-8-10 5 5 12-16 4-14-9 4-13 16-8 3-15 15-8 4-15-10-12 7-23z"/>
+        <path d="M367 238l22 1 13 8 20-2 19 12 11 26 19 7-18 14-10 24-15 7-7 26-14 19-15-5-11-24-4-19-18-4-20-15-6-23 9-24z"/>
+        <path d="M367 177l8 6-3 16-12 8-5-8 7-9zm88 162 7 6-4 22-10 14-6-8 7-14zM182 269l13 4 5 8-14-2zm15 13 13 4 5 7-13-1z"/>
+      </g>
+      <g fill="none" stroke="#a8caff" stroke-opacity=".21" stroke-width=".8" stroke-linecap="round">
+        <path d="M132 227c19-19 44-25 65-23m-57 32c14-13 32-19 49-19m242-63c18 5 34 15 45 28m-50-18c15 4 27 11 37 20M150 399c25 18 56 26 84 26m-74-12c19 13 38 19 59 22m189-20c25-8 47-25 64-47m-55 55c20-7 39-19 52-35"/>
+      </g>
+      <path id="ejh-rotating-land" fill="url(#ejh-land)" stroke="#b9f2f9" stroke-opacity=".46" stroke-width=".75" stroke-linejoin="round"/>
+      <circle cx="310" cy="278" r="204" fill="url(#ejh-land-lines)" mask="url(#ejh-land-mask)"/>
+      <g fill="none" stroke="#16132d" filter="url(#ejh-shadow)" opacity=".83" transform="translate(4 11)">
+        <use href="#ejh-band" stroke-width="26"/><use href="#ejh-left-pad" x="-27" stroke-width="27"/><use href="#ejh-right-pad" x="27" stroke-width="27"/>
+      </g>
+    </g>
+  </g>
+  <g id="ejh-layer-headphones">
+    <g fill="none">
+      <use href="#ejh-band" stroke="#17182d" stroke-width="16"/>
+      <use href="#ejh-band" stroke="url(#ejh-metal)" stroke-width="12"/>
+      <path d="M66 226C78 120 191 38 309 32c69 0 132 31 179 75" stroke="#83eaf4" stroke-opacity=".55" stroke-width="2"/>
+    </g>
+    <g fill="url(#ejh-metal)" stroke="#565b7f" stroke-width="2">
+      <use href="#ejh-left-shell" x="-27"/><use href="#ejh-right-shell" x="27"/>
+    </g>
+    <g fill="#21243f" stroke="url(#ejh-rim)" stroke-width="2">
+      <use href="#ejh-left-pad" x="-27"/><use href="#ejh-right-pad" x="27"/>
+    </g>
+    <g fill="none" stroke-linecap="round" stroke-width="2">
+      <path d="M125 295l7 36m362-36-7 36" stroke="url(#ejh-signal)" stroke-width="5" opacity=".73" filter="url(#ejh-glow)"/>
+      <path d="M125 295l7 36m362-36-7 36" stroke="url(#ejh-signal)" opacity=".85"/>
+    </g>
+  </g>
+  <g id="ejh-layer-wave" class="landing-signal" fill="none" stroke="url(#ejh-signal)" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#ejh-wave" stroke-width="4" opacity=".34" filter="url(#ejh-glow)"/>
+    <use href="#ejh-wave" stroke-width="2"/>
+  </g>
+</svg>

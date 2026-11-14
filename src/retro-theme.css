@@ -1,0 +1,109 @@
+:root {
+  --retro-blue: #9bb8ff;
+  --retro-purple: #c0a0ff;
+  --retro-pink: #ff83c8;
+  --retro-gradient: linear-gradient(115deg, var(--retro-blue), var(--retro-purple));
+  --retro-display: 'Bricolage Grotesque', 'DM Sans', sans-serif;
+}
+.earth-landing, .app {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 75% 12%, #30206578, transparent 36rem),
+    radial-gradient(ellipse at 13% 32%, #142d6259, transparent 37rem),
+    #0b091a;
+}
+.landing-header, .topbar { border-bottom-color: #b3a4ff32; }
+.jukebox-wordmark {
+  font: 800 clamp(12px, 1.7vw, 18px)/1 var(--retro-display);
+  letter-spacing: .075em;
+  text-transform: uppercase;
+  color: #f7f2ff;
+  text-shadow: 1px 1px #5279d4, 2px 2px #7f55bf;
+}
+.jukebox-logo {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 34px;
+  border: 2px solid var(--retro-blue);
+  border-bottom-color: var(--retro-purple);
+  border-radius: 14px 14px 4px 4px;
+  background: linear-gradient(160deg,#263d76,#241436);
+  box-shadow: 0 0 11px #9bb8ff52, inset 0 0 0 2px #100d22;
+}
+.jukebox-logo-record {
+  position: absolute;
+  top: 5px;
+  width: 11px;
+  height: 11px;
+  border: 1px solid #e1d5ff;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle,#dfc8ff 0 1px,#45306e 2px 3px);
+}
+.jukebox-logo-grille {
+  position: absolute;
+  inset: 17px 5px 4px;
+  border-top: 1px solid var(--retro-purple);
+  background: repeating-linear-gradient(90deg,#b28af4 0 1px,transparent 1px 3px);
+  border-radius: 2px;
+}
+.landing-copy h1, .planet-heading h1 {
+  font-family: var(--retro-display);
+  font-weight: 800;
+  letter-spacing: -.06em;
+}
+.landing-copy h1 em, .planet-heading h1 {
+  color: var(--retro-blue);
+  background: var(--retro-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 3px 0 #6456b45e);
+}
+.world-listen, .language-switch button[aria-pressed=true] {
+  background: var(--retro-gradient);
+  color: #100d24;
+}
+.language-switch { background: #14112a; }
+.planet-jukebox {
+  border-color: var(--retro-blue);
+  background: linear-gradient(160deg,#253a77,#231337);
+  box-shadow: 0 0 28px #9070ed89, inset 0 0 0 5px #c09aff69;
+}
+.planet-track, .card {
+  border-color: #bba2ff47;
+  background: linear-gradient(158deg,#201b3b,#141126);
+}
+.planet-track:hover, .card:hover {
+  border-color: var(--retro-purple);
+  box-shadow: 0 0 22px #9c79ff3d;
+}
+.planet-track:focus-visible, .card:focus-visible { outline-color: var(--retro-blue); }
+.world-audio, .about-dialog, .sonification-dialog { background: #17142c; border-color: #b69af365; }
+.earth-landing .landing-final-cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 100%, #4d248158, transparent 72%);
+}
+.landing-final-cta::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 32% -65% -45%;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, #9bb8ff65 1px, transparent 2px),
+    linear-gradient(#c0a0ff86 1px, transparent 2px);
+  background-size: 62px 44px;
+  background-position: center;
+  transform: perspective(225px) rotateX(54deg);
+  transform-origin: center 38%;
+  mask-image: linear-gradient(transparent 10%, #000 45%);
+}
+@media (forced-colors: active) {
+  .landing-copy h1 em, .planet-heading h1 { background: none; -webkit-text-fill-color: currentColor; }
+  .landing-final-cta::before { display: none; }
+}

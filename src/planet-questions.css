@@ -1,0 +1,29 @@
+.planet-tracks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 235px), 1fr));
+  gap: 12px;
+}
+
+.planet-track {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  min-height: 120px;
+  border: 0;
+  border-radius: 12px;
+  background: #211835;
+  color: #faf3ff;
+  text-align: left;
+}
+
+.planet-track:hover { background: #332044; }
+.planet-track-poster { display: block; grid-column: 1 / -1; width: 100%; height: clamp(78px, 12vw, 136px); object-fit: cover; background: #302147; }
+.planet-track-copy { display: grid; align-content: start; align-self: stretch; gap: 6px; padding: 12px; }
+.planet-track-play { margin-right: 12px; }
+.planet-area, .planet-track-play { color: #ffaddf; }
+.planet-area { font-size: .78rem; font-weight: 700; }
+.planet-question { line-height: 1.35; }
+.planet-period { color: #d1c4e4; font-size: .8rem; }

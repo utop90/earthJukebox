@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explore Earth · Earth Jukebox</title>
+<style>
+:root{color-scheme:dark;--base:#100c23;--surface:#1c1632;--raised:#28203d;--line:#746986;--text:#faf5ff;--muted:#d8cce8;--cyan:#8af1f5;--pink:#ffa5db;--accent:var(--cyan);--mono:"IBM Plex Mono",ui-monospace,monospace;font:16px/1.5 system-ui,sans-serif;background:var(--base);color:var(--text)}
+*{box-sizing:border-box}body{margin:0}body.change{--accent:var(--pink)}[hidden]{display:none!important}button,input{font:inherit}button{color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:10px;cursor:pointer;min-height:44px}button:hover{background:var(--raised)}a{color:inherit;text-underline-offset:.2em}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--text);outline-offset:3px}h1,h2,p{margin:0}small,.muted{color:var(--muted)}meta{display:none}
+main,.dock-inner{max-width:1152px;margin:auto;padding-inline:clamp(16px,4vw,36px)}main{padding-block:16px 120px}.head,.dock-inner{display:flex;justify-content:space-between;align-items:center;gap:12px}.head{flex-wrap:wrap}h1{font-size:clamp(1.5rem,4vw,2.2rem)}.lang button,.dock button{padding:6px 12px}.lang [aria-pressed=true]{background:var(--text);color:var(--base)}.intro{margin:6px 0 16px;max-width:68ch}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tabs button{text-align:left;padding:8px 12px}.tabs small{display:block}.tabs [aria-selected=true]{box-shadow:inset 0 -3px var(--accent);color:var(--accent);font-weight:700}
+.chips{display:flex;gap:8px;overflow:auto;padding:8px 5px;margin:8px -5px 0}.chips button{flex:none;padding:4px 12px;border-radius:99px}.chips [aria-pressed=true]{background:var(--accent);color:var(--base)}.hint{margin:4px 0 12px}
+.master{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:20px;align-items:start}.queue,.grid{display:grid;gap:12px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:14px}.card{display:grid;text-align:left;overflow:hidden;padding:0;align-content:start;min-width:0}.queue .card{grid-template-columns:minmax(90px,34%) 1fr;align-items:center}.card[aria-pressed=true]{box-shadow:inset 0 0 0 2px var(--accent)}.thumb{position:relative;aspect-ratio:16/9;display:block;width:100%;background:#201934;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover;display:block}.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#100c23b0,transparent 75%);pointer-events:none}.play{position:absolute;z-index:1;right:6px;bottom:6px;background:var(--base);color:var(--text);padding:3px 7px;border-radius:6px}.card-copy{display:grid;gap:5px;padding:10px 12px}.card-copy strong{line-height:1.3}.meta{font: .78rem/1.45 var(--mono);color:var(--muted)}.ruler{background:var(--raised);height:5px;border-radius:4px;position:relative}.ruler i{position:absolute;height:100%;background:var(--muted);border-radius:4px;min-width:3px}.ruler i.open{background:repeating-linear-gradient(90deg,var(--muted) 0 3px,transparent 3px 6px)}.related{display:inline-block;margin-top:12px;padding:7px 12px}
+.preview,.sheet{background:var(--surface);border-radius:14px;padding:14px}.preview img,video{display:block;width:100%;aspect-ratio:16/9;object-fit:contain;background:#090711;border-radius:8px}.preview h2{margin:8px 0}.preview button{padding:6px 12px}.dock{position:fixed;bottom:0;inset-inline:0;background:var(--base);border-top:1px solid var(--line);z-index:2;padding:8px 0 max(8px,env(safe-area-inset-bottom))}.dock strong,.dock small{display:block}.dock-actions{display:flex;gap:6px}.dock[data-playing] .meter{color:var(--accent);font-weight:800}
+dialog{width:min(760px,calc(100% - 24px));max-height:85dvh;color:var(--text);border:1px solid var(--line);overflow:auto}dialog::backdrop{background:#080611a8}.sheet h2{font-size:1.35rem}.sheet button{padding:5px 10px}.sheet dl{margin:10px 0}.sheet dt{font-weight:700;margin-top:8px}.sheet dd{margin:0;color:var(--muted)}.media-inline{margin-bottom:10px}.sheet summary{cursor:pointer;min-height:44px;align-content:center}
+@media(max-width:720px){.master,.grid{grid-template-columns:1fr}.preview{grid-row:1}.grid .thumb{max-height:230px}.tabs small{font-size:.75rem}dialog.sheet{position:fixed;inset:auto 0 0;width:100%;margin:0;max-height:85dvh;border-radius:16px 16px 0 0}.dock-inner{gap:8px}.dock button{padding-inline:8px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+<main>
+  <header class="head"><h1 data-copy="heading"></h1><div class="lang"><button type="button" lang="es" data-language="es">Español</button> <button type="button" lang="en" data-language="en">English</button></div></header>
+  <p class="intro muted" data-copy="intro"></p>
+  <div class="tabs" role="tablist" aria-label="Exploración">
+    <button type="button" role="tab" id="tab-earth" aria-controls="earth"><span data-copy="earth"></span><small data-copy="earthSub"></small></button>
+    <button type="button" role="tab" id="tab-change" aria-controls="change"><span data-copy="change"></span><small data-copy="changeSub"></small></button>
+  </div>
+  <section id="earth" role="tabpanel" aria-labelledby="tab-earth">
+    <div class="chips" role="group" aria-label="Categorías"></div><p class="hint meta" aria-live="polite"></p>
+    <div class="master"><div class="queue"></div><article class="preview"></article></div>
+    <button type="button" class="related" id="related-earth"></button>
+  </section>
+  <section id="change" role="tabpanel" aria-labelledby="tab-change" hidden>
+    <div class="grid"></div><button type="button" class="related" id="related-change" data-copy="back"></button>
+  </section>
+</main>
+<div class="dock"><div class="dock-inner">
+  <div><small><span class="meter" aria-hidden="true">▂▅▃</span> <span id="play-status" role="status"></span></small><strong id="play-title"></strong></div>
+  <div class="dock-actions"><button type="button" id="toggle"></button><button type="button" id="details" data-copy="details"></button></div>
+</div></div>
+<dialog class="sheet" aria-labelledby="detail-title">
+  <div class="head"><h2 id="detail-title"></h2><button type="button" id="close" data-copy="close"></button></div>
+  <div id="sheet-media"></div><button type="button" id="sheet-toggle"></button>
+  <dl><dt data-copy="visual"></dt><dd id="visual"></dd><dt data-copy="period"></dt><dd id="period"></dd><dt data-copy="legend"></dt><dd data-copy="pending"></dd><dt data-copy="source"></dt><dd><a id="source">NASA Scientific Visualization Studio</a></dd></dl>
+  <details><summary data-copy="transcript"></summary><p data-copy="transcriptPending"></p></details>
+</dialog>
+<script>
+"use strict";
+// NASA media and bilingual editorial metadata.
+const data = {"earth":[[{"id":"4950","src":"https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/GEDI_global_w_colorbar_1080p60.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/GEDI_global_w_colorbar_0900_searchweb.png","title":{"es":"La altura de los bosques","en":"Forest height"},"period":{"es":"Abril de 2019–abril de 2020","en":"April 2019–April 2020"}},{"id":"4993","src":"https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021_p30_1080p30.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021.7135_searchweb.png","title":{"es":"El avance del incendio Dixie","en":"The spread of the Dixie Fire"},"period":{"es":"14 de julio–22 de octubre de 2021","en":"14 July–22 October 2021"}}],[{"id":"5425","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005425/perpetual_ocean2_CLOSE_093_clean_noDate_1080p30.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005425/perpetual_ocean2_CLOSE_093_clean_noDate_1080p_carousel.jpg","title":{"es":"Corrientes oceánicas","en":"Ocean currents"}},{"id":"5382","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005382/sea_ice_2024_min_1080p60.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005382/sea_ice_2024_min_2160p60.2608_searchweb.png","title":{"es":"El hielo marino del Ártico","en":"Arctic sea ice"},"period":{"es":"14 de marzo–11 de septiembre de 2024","en":"14 March–11 September 2024"}}],[{"id":"5148","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005148/MC02_stage3_GMAO_near_surface_wind_2048x1024_en.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005148/MC02_stage3_GMAO_near_surface_wind_2048x1024_en.00001_print.jpg","title":{"es":"Vientos cerca de la superficie","en":"Near-surface winds"}},{"id":"5011","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005011/iss_lightning_sphere_07312023.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005011/iss_lightning_preview_searchweb.png","title":{"es":"Rayos vistos desde el espacio","en":"Lightning seen from space"},"period":{"es":"Enero de 2017–julio de 2023","en":"January 2017–July 2023"}}],[{"id":"5207","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005200/a005207/2023GISTEMP_Map_HD.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005200/a005207/2023GISTEMP_Map.00899_searchweb.png","title":{"es":"Anomalías de temperatura global","en":"Global temperature anomalies"},"period":{"es":"1880–2023","en":"1880–2023"}},{"id":"5190","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_English_degC_2160p60.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_English_degC_2160p60.01402_print.jpg","title":{"es":"La espiral climática","en":"The climate spiral"},"spanishSrc":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_Spanish_degC_2160p60.mp4","spanishPoster":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_Spanish_degC_2160p60.01400_full.jpg"}],[{"id":"5190","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_English_degC_2160p60.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_English_degC_2160p60.01402_print.jpg","title":{"es":"La espiral climática","en":"The climate spiral"},"spanishSrc":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_Spanish_degC_2160p60.mp4","spanishPoster":"https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_Spanish_degC_2160p60.01400_full.jpg"},{"id":"5382","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005382/sea_ice_2024_min_1080p60.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005382/sea_ice_2024_min_2160p60.2608_searchweb.png","title":{"es":"El hielo marino del Ártico","en":"Arctic sea ice"},"period":{"es":"14 de marzo–11 de septiembre de 2024","en":"14 March–11 September 2024"}}]],"change":[{"id":"5516","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005516/seaLevelRise_2024_English.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005516/seaLevelRise_2024.jpg","spanishSrc":"https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005516/seaLevelRise_2024_Spanish.mp4","spanishPoster":"https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005516/seaLevelRise_2024_Spanish.jpg","area":{"es":"Nivel del mar","en":"Sea level"},"title":{"es":"¿Cuánto ha subido el nivel del mar?","en":"How much has the ocean risen?"},"detail":{"es":"Nivel medio global · 1993–2024","en":"Global mean sea level · 1993–2024"},"period":{"es":"1993–2024","en":"1993–2024"}},{"id":"5631","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005631/CanadianWildfires2023_SmokeIntensity_short_1920x1080.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005631/CanadianWildfires2023_SmokeIntensity_short_1920x1080.png","area":{"es":"Calidad del aire","en":"Air quality"},"title":{"es":"¿Hasta dónde viajó el humo de los incendios de Canadá?","en":"How far did smoke from the Canadian wildfires travel?"},"detail":{"es":"Norteamérica · 6–10 de junio de 2023","en":"North America · 6–10 June 2023"},"period":{"es":"6–10 de junio de 2023","en":"6–10 June 2023"}},{"id":"31053","src":"https://svs.gsfc.nasa.gov/vis/a030000/a031000/a031053/CMG_0_05_Deg_Monthly_NDVI_1080p.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a030000/a031000/a031053/CMG_0_05_Deg_Monthly_NDVI_searchweb.png","area":{"es":"Biodiversidad","en":"Biodiversity"},"title":{"es":"¿Cómo cambia el verdor de la vegetación en el mundo?","en":"How does vegetation greenness change around the world?"},"detail":{"es":"Índice de vegetación Terra MODIS · desde febrero de 2000","en":"Terra MODIS vegetation index · from February 2000"},"period":{"es":"Desde febrero de 2000 · fin por confirmar","en":"From February 2000 · end to be confirmed"}},{"id":"4993","src":"https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021_p30_1080p30.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021.7135_searchweb.png","area":{"es":"Incendios forestales","en":"Wildfires"},"title":{"es":"¿Cómo se extendió el incendio Dixie?","en":"How did the Dixie Fire spread?"},"detail":{"es":"California · 14 de julio–22 de octubre de 2021","en":"California · 14 July–22 October 2021"},"period":{"es":"14 de julio–22 de octubre de 2021","en":"14 July–22 October 2021"}},{"id":"5024","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005024/co2airs_60South_1920x1080p30.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005024/co2airs_60South_1920x108030p.0794_print.jpg","area":{"es":"Gases de efecto invernadero","en":"Greenhouse gases"},"title":{"es":"¿Cómo ha cambiado el CO₂ atmosférico?","en":"How has atmospheric CO₂ changed?"},"detail":{"es":"CO₂ atmosférico global · septiembre de 2002–octubre de 2022","en":"Global atmospheric CO₂ · September 2002–October 2022"},"period":{"es":"Septiembre de 2002–octubre de 2022","en":"September 2002–October 2022"}},{"id":"5313","src":"https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005313/nightlights_flat_series_and_change_wZooms_13_EIC_2160p30_h265.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005313/nightlights_flat_series_and_change_wZooms_13_EIC.02599_searchweb.png","fallbackSrc":"https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005475/nightlights_2012-2024_KSC_SOS_04_plus2_4096x2048_30p_h264.mp4","area":{"es":"Energía","en":"Energy"},"title":{"es":"¿Dónde se ilumina más el mundo de noche?","en":"Where is the world getting brighter at night?"},"detail":{"es":"Luces nocturnas · 2012–2023","en":"Nighttime lights · 2012–2023"},"period":{"es":"2012–2023","en":"2012–2023"}},{"id":"2893","src":"https://svs.gsfc.nasa.gov/vis/a000000/a002800/a002893/eqmollweide_1080p30.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a000000/a002800/a002893/earthquakes_pre.jpg","area":{"es":"Desastres","en":"Disasters"},"title":{"es":"¿Dónde se concentran los terremotos?","en":"Where do earthquakes cluster?"},"detail":{"es":"Terremotos acumulados en el mundo · 1980–1995","en":"Cumulative global earthquakes · 1980–1995"},"period":{"es":"1980–1995","en":"1980–1995"}},{"id":"31178","src":"https://svs.gsfc.nasa.gov/vis/a030000/a031100/a031178/GRACE_GLOBAL_7D_RTZSM_030_1080p10.webm","poster":"https://svs.gsfc.nasa.gov/vis/a030000/a031100/a031178/GRACE_GLOBAL_7D_RTZSM_030_20251124.png","fallbackSrc":"https://svs.gsfc.nasa.gov/vis/a030000/a031100/a031178/GRACE_GLOBAL_7D_RTZSM_030_1080p10.mp4","area":{"es":"Recursos hídricos","en":"Water resources"},"title":{"es":"¿Dónde cambia la humedad del suelo?","en":"Where does soil moisture change?"},"detail":{"es":"Humedad en la zona de las raíces · 2003–2021","en":"Root zone soil moisture · 2003–2021"},"period":{"es":"2003–2021","en":"2003–2021"}},{"id":"15025","src":"https://svs.gsfc.nasa.gov/vis/a010000/a015000/a015025/Saudi_Arabia_Crops_-_Web.mp4","poster":"https://svs.gsfc.nasa.gov/vis/a010000/a015000/a015025/SaudiArabia_SearchWeb.jpg","area":{"es":"Agricultura","en":"Agriculture"},"title":{"es":"¿Cómo cambian los cultivos del desierto a lo largo del año?","en":"How do desert crops change through the year?"},"detail":{"es":"Arabia Saudí · enero de 2024–enero de 2025","en":"Saudi Arabia · January 2024–January 2025"},"period":{"es":"2024–enero de 2025","en":"2024–January 2025"}}]};
+const copy = {
+es:{heading:"Explora la Tierra",intro:"La sonificación convierte datos en sonido para que puedas oír sus cambios y patrones.",earth:"Escucha la Tierra",earthSub:"Explora por elementos",change:"Escucha cómo ha cambiado",changeSub:"Nueve preguntas sobre el planeta",ready:"En cola",playing:"Reproduciendo vídeo",play:"Reproducir vídeo",pause:"Pausar vídeo",details:"Detalles",close:"Cerrar",visual:"Qué se ve",period:"Periodo de los datos",legend:"Tono y volumen",pending:"Sonificación pendiente. La equivalencia entre los datos, el tono y el volumen está por confirmar.",source:"Fuente",transcript:"Transcripción y descripción sonora",transcriptPending:"La descripción sonora y los subtítulos de la sonificación se incorporarán cuando haya una pista de audio validada.",unknown:"Por confirmar",duration:"Duración del vídeo",back:"Volver a las pistas por elementos",related:"Pregunta relacionada",filters:"Categorías",modes:"Modos de exploración",error:"Vídeo no disponible. Consulta la fuente de la NASA."},
+en:{heading:"Explore Earth",intro:"Sonification turns data into sound so you can hear its changes and patterns.",earth:"Listen to Earth",earthSub:"Explore by element",change:"Listen to how Earth has changed",changeSub:"Nine questions about our planet",ready:"Queued",playing:"Playing video",play:"Play video",pause:"Pause video",details:"Details",close:"Close",visual:"What you see",period:"Data period",legend:"Pitch and volume",pending:"Sonification pending. The mapping from data to pitch and volume is to be confirmed.",source:"Source",transcript:"Transcript and sound description",transcriptPending:"A sound description and sonification captions will be added once an audio track is verified.",unknown:"To be confirmed",duration:"Video duration",back:"Return to tracks by element",related:"Related question",filters:"Categories",modes:"Exploration modes",error:"Video unavailable. See the NASA source."}
+};
+const topics = [
+ ["▦","Todas","All","Todas las pistas de esta selección.","All tracks in this selection."],
+ ["△","Tierra","Land","Bosques y cambios en la superficie.","Forests and changes on land."],
+ ["≈","Agua","Water","Corrientes y hielo marino.","Currents and sea ice."],
+ ["≋","Aire","Air","Viento y actividad atmosférica.","Wind and atmospheric activity."],
+ ["◐","Temperatura","Temperature","Variaciones térmicas globales.","Global temperature variations."],
+ ["◷","Clima","Climate","Cambio a largo plazo e indicadores climáticos.","Long-term change and climate indicators."]
+];
+const links = [0,3,0,1,4,4];
+const years = [[1993,2024],[2023,2023],[2000,null],[2021,2021],[2002,2022],[2012,2023],[1980,1995],[2003,2021],[2024,2025]];
+const $ = selector => document.querySelector(selector);
+const tabs = [...document.querySelectorAll('[role=tab]')];
+const dialog = $('dialog');
+const video = document.createElement('video');
+video.controls = true;
+video.playsInline = true;
+video.preload = 'none';
+video.setAttribute('aria-describedby','visual');
+let language = 'es', mode = 'earth', category = 0, current = data.earth[0][0], fallback = false, failed = false;
+const durations = new Map();
+const text = key => copy[language][key];
+const itemText = item => item?.[language] || text('unknown');
+const src = () => (language === 'es' && current.spanishSrc) || current.src;
+const poster = item => (language === 'es' && item.spanishPoster) || item.poster;
+const node = (tag, className, value) => {
+ const element = document.createElement(tag);
+ if (className) element.className = className;
+ if (value !== undefined) element.textContent = value;
+ return element;
+};
+const all = [...new Map(data.earth.flat().map(track => [track.id,track])).values()];
+const queue = () => category ? data.earth[category - 1] : all;
+const period = track => itemText(track.period);
+function card(track, index, question) {
+ const control = node('button','card');
+ control.type = 'button';
+ control.dataset.id = track.id;
+ const thumb = node('span','thumb');
+ const image = node('img');
+ image.src = poster(track); image.alt = ''; image.decoding = 'async';
+ image.loading = index === 0 ? 'eager' : 'lazy';
+ if (index === 0) image.fetchPriority = 'high';
+ const play = node('span','play','▶');
+ play.setAttribute('aria-hidden','true');
+ thumb.append(image, play);
+ const body = node('span','card-copy');
+ if (question) body.append(node('span','meta',String(index+1).padStart(2,'0')+' · '+itemText(track.area)));
+ body.append(node('strong','',itemText(track.title)));
+ if (question) {
+  body.append(node('span','meta',period(track)));
+  const ruler = node('span','ruler');
+  ruler.setAttribute('aria-hidden','true');
+  const bar = node('i',years[index][1] === null ? 'open' : '');
+  // Shared scale echoes 1700 → today. A dashed end means unverified coverage.
+  const range = new Date().getFullYear()-1700;
+  bar.style.left = (years[index][0]-1700)*100/range+'%';
+  bar.style.width = ((years[index][1] ?? years[index][0])-years[index][0])*100/range+'%';
+  ruler.append(bar); body.append(ruler,node('span','meta', '1700 → '+(language==='es'?'Hoy':'Today')));
+ }
+ body.append(node('span','meta card-duration'));
+ control.append(thumb,body);
+ control.onclick = () => { select(track); if (question) showDetails(); };
+ return control;
+}
+function update() {
+ const playing = !video.paused && !video.ended;
+ $('#play-status').textContent = failed ? text('error') : text(playing ? 'playing' : 'ready');
+ $('#play-title').textContent = itemText(current.title);
+ $('.dock').toggleAttribute('data-playing',playing);
+ $('#toggle').textContent = text(playing ? 'pause' : 'play');
+ $('#sheet-toggle').textContent = $('#toggle').textContent;
+ $('#detail-title').textContent = itemText(current.title);
+ $('#visual').textContent = itemText(current.detail || current.title);
+ $('#period').textContent = period(current);
+ $('#source').href = 'https://svs.gsfc.nasa.gov/'+current.id+'/';
+ for (const button of document.querySelectorAll('.card')) {
+  const active = button.dataset.id === current.id;
+  button.setAttribute('aria-pressed',String(active));
+  button.querySelector('.play').textContent = active ? (playing ? '▂▅▃' : '✓ ▶') : '▶';
+  button.querySelector('.card-duration').textContent = text('duration')+' · '+(durations.get(button.dataset.id) || text('unknown'));
+ }
+}
+function render() {
+ document.documentElement.lang = language;
+ document.querySelectorAll('[data-copy]').forEach(element => element.textContent=text(element.dataset.copy));
+ document.querySelectorAll('[data-language]').forEach(button => button.setAttribute('aria-pressed',String(button.dataset.language===language)));
+ $('.tabs').setAttribute('aria-label',text('modes'));
+ $('.chips').setAttribute('aria-label',text('filters'));
+ for (const tab of tabs) {
+  const active = tab.id === 'tab-'+mode;
+  tab.setAttribute('aria-selected',String(active)); tab.tabIndex = active ? 0 : -1;
+  document.getElementById(tab.getAttribute('aria-controls')).hidden = !active;
+ }
+ document.body.classList.toggle('change',mode==='change');
+ if (mode === 'earth') {
+  const chips = topics.map(([icon,es,en],i) => {
+   const button = node('button','',(category===i?'✓ ':icon+' ')+(language==='es'?es:en)+' '+(i?data.earth[i-1].length:all.length));
+   button.type='button'; button.setAttribute('aria-pressed',String(category===i));
+   button.onclick=()=>{category=i; render(); $('.chips').children[i].focus();};
+   return button;
+  });
+  $('.chips').replaceChildren(...chips);
+  $('.hint').textContent = topics[category][language==='es'?3:4];
+  $('.queue').replaceChildren(...queue().map((track,i)=>card(track,i,false)));
+  $('#related-earth').textContent = text('related')+' · '+itemText(data.change[links[category]].area);
+ } else {
+  $('.grid').replaceChildren(...data.change.map((track,i)=>card(track,i,true)));
+ }
+ renderPreview(); update();
+}
+function renderPreview() {
+ const image = node('img'); image.src = poster(current); image.alt = ''; image.decoding = 'async';
+ const button = node('button','',text('details')); button.type='button'; button.onclick=showDetails;
+ $('.preview').replaceChildren(video.hasAttribute('src') && !dialog.open ? video : image,node('h2','',itemText(current.title)),node('p','meta',text('pending')),button);
+}
+function select(track) {
+ if (track.id === current.id) return;
+ video.pause(); video.removeAttribute('src'); video.load();
+ current=track; fallback=false; failed=false;
+ video.replaceChildren();
+ $('#sheet-media').replaceChildren();
+ renderPreview(); update();
+}
+function switchMode(next,focus=true) {
+ mode=next; render();
+ if (focus) $('#tab-'+next).focus();
+}
+function showDetails() {
+ if (video.hasAttribute('src')) $('#sheet-media').append(video);
+ dialog.showModal();
+}
+function play() {
+ if (failed) {video.removeAttribute('src'); failed=false;}
+ if (!video.hasAttribute('src')) {
+  fallback=false; video.poster=poster(current);
+  video.src=src();
+  if (current.captions) for (const [lang,url] of Object.entries(current.captions)) {
+   const track=node('track'); track.kind='captions'; track.srclang=lang; track.label=lang==='es'?'Español':'English'; track.src=url; video.append(track);
+  }
+ }
+ if (dialog.open) $('#sheet-media').append(video);
+ else if (mode === 'earth') renderPreview();
+ else showDetails();
+ void video.play().catch(()=>update());
+}
+$('#toggle').onclick=$('#sheet-toggle').onclick=()=>video.paused||video.ended?play():video.pause();
+$('#details').onclick=showDetails;
+$('#close').onclick=()=>dialog.close();
+dialog.addEventListener('close',()=>{if(mode==='earth')renderPreview();});
+$('#related-earth').onclick=()=>{select(data.change[links[category]]);switchMode('change');$('.grid').children[links[category]].focus();};
+$('#related-change').onclick=()=>switchMode('earth');
+for (const event of ['play','pause','ended']) video.addEventListener(event,update);
+video.addEventListener('error',()=>{
+ if (current.fallbackSrc && !fallback) {fallback=true;video.src=current.fallbackSrc;void video.play().catch(()=>update());return;}
+ failed=true; update();
+});
+video.addEventListener('loadedmetadata',()=>{
+ if (!Number.isFinite(video.duration)) return;
+ const seconds=Math.round(video.duration);
+ durations.set(current.id,Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0'));update();
+});
+for (const tab of tabs) {
+ tab.onclick=()=>switchMode(tab.id.slice(4));
+ tab.onkeydown=event=>{
+  const index=tabs.indexOf(tab);
+  const next={ArrowLeft:1-index,ArrowRight:1-index,Home:0,End:1}[event.key];
+  if(next===undefined)return;
+  event.preventDefault(); switchMode(tabs[next].id.slice(4));
+ };
+}
+for (const button of document.querySelectorAll('[data-language]')) button.onclick=()=>{language=button.dataset.language;render();};
+render();
+</script>
+</html>

@@ -1,131 +1,104 @@
+import JukeboxLogo from './JukeboxLogo';
 import { useEffect, useRef, useState } from 'react';
 import LanguageSwitch, { type Language } from './LanguageSwitch';
+import heroIllustration from './earth-jukebox-hero.svg?raw';
+import { landPath, loadLand } from './heroEarth';
 import './landing.css';
 
-const resolution = 384;
-const textureUrl = import.meta.env.BASE_URL + 'earth-surface.webp';
-
-function Earth({ paused }: { paused: boolean }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const pausedRef = useRef(paused);
-  useEffect(() => { pausedRef.current = paused; }, [paused]);
+function HeroIllustration({ paused }: { paused: boolean }) {
+  const scene = useRef<HTMLDivElement>(null);
+  const longitude = useRef(-24);
+  const [land, setLand] = useState<Awaited<ReturnType<typeof loadLand>>>();
 
   useEffect(() => {
-    const context = canvasRef.current?.getContext('2d');
-    if (!context) return;
-    const texture = new Image();
-    let request = 0;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    texture.onload = () => {
-      const source = document.createElement('canvas');
-      source.width = texture.naturalWidth;
-      source.height = texture.naturalHeight;
-      const pixels = source.getContext('2d');
-      if (!pixels) return;
-      pixels.drawImage(texture, 0, 0);
-      const map = pixels.getImageData(0, 0, source.width, source.height).data;
-      const frame = context.createImageData(resolution, resolution);
-      const surface: { index: number; u: number; row: number; light: number; rim: number }[] = [];
-
-      for (let y = 0; y < resolution; y++) {
-        for (let x = 0; x < resolution; x++) {
-          const nx = (x + 0.5) * 2 / resolution - 1;
-          const ny = 1 - (y + 0.5) * 2 / resolution;
-          const radius = nx * nx + ny * ny;
-          if (radius >= 1) continue;
-          const nz = Math.sqrt(1 - radius);
-          const latitude = Math.asin(ny * 0.96 + nz * 0.28);
-          const longitude = Math.atan2(nx, nz * 0.96 - ny * 0.28);
-          surface.push({
-            index: (y * resolution + x) * 4,
-            u: (0.31 + longitude / (2 * Math.PI)) * source.width,
-            row: Math.floor((0.5 - latitude / Math.PI) * source.height) * source.width,
-            light: 0.27 + 0.80 * Math.max(0, -nx * 0.43 + ny * 0.34 + nz * 0.83),
-            rim: (1 - nz) ** 3,
-          });
-        }
-      }
-
-      let rotation = 0;
-      let previous = 0;
-      let drawn = false;
-      const draw = (time: number) => {
-        request = requestAnimationFrame(draw);
-        const stationary = pausedRef.current || reducedMotion.matches;
-        const elapsed = time - previous;
-        if (drawn && elapsed < 40) return;
-        previous = time;
-        if (drawn && stationary) return;
-        if (drawn) rotation = (rotation + Math.min(elapsed, 80) * source.width / 85000) % source.width;
-        for (const { index, u, row, light, rim } of surface) {
-          const sample = (row + Math.floor(u + rotation + source.width) % source.width) * 4;
-          frame.data[index] = map[sample] * light + rim * 24;
-          frame.data[index + 1] = map[sample + 1] * light + rim * 66;
-          frame.data[index + 2] = map[sample + 2] * light + rim * 78;
-          frame.data[index + 3] = 255;
-        }
-        context.putImageData(frame, 0, 0);
-        drawn = true;
-      };
-      request = requestAnimationFrame(draw);
-    };
-    texture.src = textureUrl;
-    return () => {
-      texture.onload = null;
-      cancelAnimationFrame(request);
-    };
+    const controller = new AbortController();
+    loadLand(controller.signal).then(setLand).catch(() => {
+      // Keep the embedded illustration if the coastline asset is unavailable.
+    });
+    return () => controller.abort();
   }, []);
 
-  return <canvas ref={canvasRef} width={resolution} height={resolution} className="landing-globe" />;
+  useEffect(() => {
+    const outline = scene.current?.querySelector('#ejh-rotating-land');
+    if (!outline || !land?.length) return;
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    let last = 0;
+    const draw = () => outline.setAttribute('d', landPath(land, longitude.current));
+    function animate(time: number) {
+      if (time - last >= 40) {
+        longitude.current = (longitude.current + Math.min(80, time - last) * .009) % 360;
+        last = time;
+        draw();
+      }
+      frame = requestAnimationFrame(animate);
+    }
+    function update() {
+      cancelAnimationFrame(frame);
+      if (!paused && !preference.matches) {
+        last = performance.now();
+        frame = requestAnimationFrame(animate);
+      }
+    }
+    draw();
+    update();
+    preference.addEventListener('change', update);
+    return () => {
+      cancelAnimationFrame(frame);
+      preference.removeEventListener('change', update);
+    };
+  }, [land, paused]);
+
+  return <div ref={scene} className="landing-scene" data-paused={paused} aria-hidden="true"
+    dangerouslySetInnerHTML={{ __html: heroIllustration }} />;
 }
 
-const waveform = 'M0 60 H108 l8 -4 8 8 8 -13 8 19 8 -28 8 37 8 -57 8 76 8 -96 8 110 8 -88 8 60 8 -36 8 16 8 -10 8 4 H278 l8 -7 8 17 8 -36 8 51 8 -41 8 22 8 -12 8 6 H370 l8 -3 8 6 8 -8 8 12 8 -18 8 22 8 -17 8 10 8 -4 H469 l8 -4 8 8 8 -18 8 33 8 -51 8 72 8 -84 8 68 8 -42 8 22 8 -11 8 5 H660';
+const eicGalleryUrl = 'https://svs.gsfc.nasa.gov/gallery/earth-information-center/';
+const forestHeightMediaUrl = 'https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/';
 
 const landingCopy = {
   en: {
     skip: 'Skip to content',
     aboutLink: 'About',
     aboutClose: 'Close About',
-    aboutEyebrow: 'SPACE APPS CHALLENGE 2026',
     aboutDialogTitle: 'Earth Jukebox',
     aboutSections: [
       {
         id: 'about-introduction',
         title: 'Introduction',
         paragraphs: [
-          'We are Sara and Lavinia, two women from Málaga with six years of experience in web development. Earth Jukebox is our idea for making Earth observations easier to explore by bringing visualisations and sound together.',
-          'The project explores environmental data from 1700 to 2026. The current website presents a visual collection; interactive image-to-sound exploration is the next development stage.',
+          <>We are Sara and Lavinia, two women from Málaga with six years of experience in web development. Earth Jukebox is our idea for making Earth observations easier to explore by <strong>bringing visualisations and sound together</strong>.</>,
         ],
         links: [],
       },
       {
         id: 'about-how-to-use',
         title: 'How to use',
+        note: 'The interactive map offers short sonification previews. Timeline comparisons are in development.',
         paragraphs: [
-          'Choose a video from the collection and use its player controls. Search the collection or filter it by category; open a source page for context about a visualisation.',
-          'Colours belong to each individual visualisation, so their meaning depends on its data and legend; they are not a single Earth Jukebox colour scale. Interactive sonification is not available yet. The planned prototype maps brighter image patterns to higher notes and darker patterns to lower notes.',
+          <><strong>Explore the world map.</strong> Select a region and open its associated video to see that part of the planet and listen to its sound.</>,
+          <><strong>Compare changes over time.</strong> Explore how the planet changed from 1880 to 2026 by selecting a series such as global temperature. See how Sea Surface Temperature changed from 2002 to 2025, a span of 23 years, and listen to those changes.</>,
+          <><strong>Search the video collection.</strong> Filter the full collection by date or by tags such as Climate and Ocean. Choose any video and open it to explore.</>,
         ],
         links: [],
       },
       {
         id: 'about-sources',
         title: 'Data sources',
+        videoLabel: 'GEDI Forest Height',
         paragraphs: [
-          'The current catalogue is a manually curated set of visualisations from the Earth Information Center. The project’s data period is 1700–2026. Each dataset must be documented with its publisher, units and period of coverage.',
-          'The first sonification prototype is planned around an ocean-current visualisation. A timestamp within a video is a position in that visualisation, not a historical observation date.',
+          'The Earth Information Center (EIC) is a public resource for exploring how Earth is changing. Its gallery brings together visualisations made from satellite images and measurements. Some also use observations from the ground or ocean and results from scientific models.',
+          <>We extract <strong>every frame we use from videos in the EIC gallery</strong>.</>,
         ],
-        links: [
-          { label: 'Earth Information Center', href: 'https://science.nasa.gov/earth/earth-information-center/' },
-        ],
+        links: [{ label: 'Explore the Earth Information Center (EIC) gallery', href: eicGalleryUrl }],
       },
       {
         id: 'about-method',
         title: 'Methodology',
         paragraphs: [
           'For each prepared frame, the planned method selects a region of interest, converts its pixels to relative luminance, and divides it into eight columns. Each column’s value is the proportion of valid pixels above a fixed brightness threshold.',
-          'A value from 0 to 1 maps to one of eight MIDI notes [48, 50, 52, 55, 57, 60, 62, 64] using round(7 × value): a higher proportion of bright pixels produces a higher note. This describes an image pattern; it is not a direct measurement of ocean speed, temperature or current strength.',
-          'The planned visual feedback highlights the analysed region and active column in sync with sound. This image-to-sound feature is not implemented in the current website.',
+          <>A value from 0 to 1 maps to one of eight MIDI notes [48, 50, 52, 55, 57, 60, 62, 64] using round(7 × value): <strong>a higher proportion of bright pixels produces a higher note</strong>. This describes an image pattern; it is not a direct measurement of ocean speed, temperature or current strength.</>,
+          'The map preview samples four frames from the selected video. The full player will highlight the region and active column in sync with the sound.',
         ],
         links: [],
       },
@@ -133,7 +106,7 @@ const landingCopy = {
         id: 'about-access',
         title: 'Accessibility',
         paragraphs: [
-          'The design uses a high-contrast palette with light text on dark backgrounds, a distinct accent colour and a visible focus outline for keyboard focus. Links, buttons, headings, header, main, sections and footer use semantic HTML; the About panel uses a native dialog with a labelled heading.',
+          <>The design uses a high-contrast palette with light text on dark backgrounds, a distinct accent colour and <strong>a visible focus outline for keyboard focus</strong>. Links, buttons, headings, header, main, sections and footer use semantic HTML; the About panel uses a native dialog with a labelled heading.</>,
           'Links, language buttons, dialog navigation and native video controls can be reached with a keyboard. The globe animation respects the reduced-motion preference, and the pause control is available when motion is enabled. Decorative graphics are hidden from assistive technology; controls have accessible names and state where needed.',
           'These measures are part of the current interface. Full testing with keyboard-only use and screen readers remains necessary; the planned sonification controls are not yet present.',
         ],
@@ -143,7 +116,7 @@ const landingCopy = {
         id: 'about-technology',
         title: 'Technology',
         paragraphs: [
-          'The current website uses React, TypeScript and Vite. An application backend is planned for a later stage, but has not been implemented yet; for now, the catalogue is static JSON and language and playback preferences are stored in the browser.',
+          <>The current website uses <strong>React, TypeScript and Vite</strong>. An application backend is planned for a later stage, but has not been implemented yet; for now, the catalogue is static JSON and language and playback preferences are stored in the browser.</>,
           'The implementation plan proposes Web Audio API for sound, Python with NumPy and Pillow plus FFmpeg for image preparation, and Vitest, Playwright, axe and NVDA for testing. The current MVP is static and has no backend service.',
         ],
         links: [
@@ -154,8 +127,8 @@ const landingCopy = {
         id: 'about-licenses',
         title: 'Licenses & credits',
         paragraphs: [
-          'The visualisation catalogue retains the credits supplied with its source material. Consult the Earth Information Center for publisher information and the applicable terms for each dataset or visualisation.',
-          'The repository does not currently specify a code license, so no open-source license is claimed here. Created by Sara and Lavinia in Málaga for the Space Apps Challenge 2026.',
+          <>The visualisation catalogue <strong>retains the credits supplied with its source material</strong>. Consult the original sources for publisher information and terms of use.</>,
+          'The repository does not currently specify a code license, so no open-source license is claimed here. Created by Sara and Lavinia in Málaga.',
         ],
         links: [],
       },
@@ -172,7 +145,7 @@ const landingCopy = {
     observationTitle: 'Explore real observations',
     observationDescription: 'Discover visualisations built from satellite observations and scientific models. Explore oceans, forests and the atmosphere, with original sources available for every video.',
     soundTitle: 'Discover the sound of patterns',
-    soundDescription: 'Sonification connects features such as brightness to musical notes. It is the next stage of Earth Jukebox, designed to turn changes in an image into changes you can hear.',
+    soundDescription: 'Sonification connects features such as brightness to musical notes. Choose a point on the map to hear how the patterns in its video sound.',
     curiosityTitle: 'Follow your curiosity',
     curiosityDescription: 'Choose a topic, play a visualisation and take a closer look. Read the description and visit its source to understand what the colours, shapes and movement represent.',
     readyTitle: 'Ready to explore?',
@@ -188,51 +161,50 @@ const landingCopy = {
     stepTwoDescription: ' For example, brighter pixels can produce higher notes, while darker pixels produce lower notes.',
     stepThree: 'Follow the changes.',
     stepThreeDescription: ' Reading across the image creates a sequence of notes. Changing patterns become changes you can hear.',
-    dialogOutro: 'The mapping determines what each sound represents. This example explains the concept. The current collection offers visual exploration, with sonification planned for a future stage.',
+    dialogOutro: 'The mapping determines what each sound represents. Choose a point on the world map to try a short sonification preview.',
   },
   es: {
     skip: 'Saltar al contenido',
     aboutLink: 'About',
     aboutClose: 'Cerrar información',
-    aboutEyebrow: 'SPACE APPS CHALLENGE 2026',
     aboutDialogTitle: 'Earth Jukebox',
     aboutSections: [
       {
         id: 'about-introduction',
         title: 'Introducción',
         paragraphs: [
-          'Somos Sara y Lavinia, dos chicas de Málaga con seis años de experiencia en desarrollo web. Earth Jukebox es nuestra idea para hacer más accesibles las observaciones de la Tierra, conectando visualizaciones y sonido.',
-          'El proyecto explora datos ambientales desde 1700 hasta 2026. La web actual presenta una colección visual; la exploración interactiva de imagen a sonido es la siguiente etapa de desarrollo.',
+          <>Somos Sara y Lavinia, dos chicas de Málaga con seis años de experiencia en desarrollo web. Earth Jukebox es nuestra idea para hacer más accesibles las observaciones de la Tierra, <strong>conectando visualizaciones y sonido</strong>.</>,
         ],
         links: [],
       },
       {
         id: 'about-how-to-use',
         title: 'Cómo usarlo',
+        note: 'El mapa interactivo ofrece muestras breves de sonificación. Las comparaciones temporales están en desarrollo.',
         paragraphs: [
-          'Elige un vídeo de la colección y utiliza sus controles de reproducción. Busca en la colección o filtra por categoría; abre la fuente para consultar el contexto de cada visualización.',
-          'Los colores pertenecen a cada visualización, por lo que su significado depende de los datos y la leyenda de esa pieza; no existe una escala de color única de Earth Jukebox. La sonificación interactiva aún no está disponible. El prototipo previsto asociará los patrones más brillantes con notas más agudas y los más oscuros con notas más graves.',
+          <><strong>Explora el mapamundi.</strong> Selecciona una región y abre su vídeo asociado para ver esa parte del planeta y escuchar su sonido.</>,
+          <><strong>Compara cambios a lo largo del tiempo.</strong> Elige una serie, como la de temperatura global, para ver cómo ha cambiado el planeta entre 1880 y 2026. Observa cómo cambió la temperatura de la superficie del mar (Sea Surface Temperature) de 2002 a 2025, un periodo de 23 años, y escucha esos cambios.</>,
+          <><strong>Busca en la colección de vídeos.</strong> Filtra toda la colección por fecha o por etiquetas como Clima y Océano. Elige el vídeo que quieras explorar y ábrelo.</>,
         ],
         links: [],
       },
       {
         id: 'about-sources',
         title: 'Fuentes de datos',
+        videoLabel: 'Altura de los bosques (GEDI)',
         paragraphs: [
-          'El catálogo actual es una selección revisada manualmente de visualizaciones del Earth Information Center. El periodo de datos del proyecto es 1700–2026. Para cada conjunto de datos se documentarán la entidad publicadora, las unidades y el periodo que cubre.',
-          'El primer prototipo de sonificación está previsto sobre una visualización de una corriente oceánica. El tiempo indicado dentro de un vídeo es una posición en esa visualización, no una fecha de observación histórica.',
+          'El Earth Information Center (EIC) es un recurso público para explorar cómo cambia la Tierra. Su galería reúne visualizaciones creadas con imágenes y mediciones de satélite. Algunas también usan observaciones tomadas en tierra o en el océano y resultados de modelos científicos.',
+          <>Extraemos <strong>todos los fotogramas que usamos de vídeos de la galería del EIC</strong>.</>,
         ],
-        links: [
-          { label: 'Earth Information Center', href: 'https://science.nasa.gov/earth/earth-information-center/' },
-        ],
+        links: [{ label: 'Explora la galería del Earth Information Center (EIC)', href: eicGalleryUrl }],
       },
       {
         id: 'about-method',
         title: 'Metodología',
         paragraphs: [
           'Para cada fotograma preparado, el método previsto selecciona una región de interés, convierte sus píxeles a luminancia relativa y la divide en ocho columnas. El valor de cada columna es la proporción de píxeles válidos que supera un umbral de brillo fijo.',
-          'Un valor entre 0 y 1 se asigna a una de ocho notas MIDI [48, 50, 52, 55, 57, 60, 62, 64] mediante round(7 × valor): una proporción más alta de píxeles brillantes produce una nota más aguda. Esto describe un patrón de imagen; no mide directamente la velocidad, temperatura ni intensidad de una corriente.',
-          'La respuesta visual prevista resalta la región analizada y la columna activa sincronizada con el sonido. Esta función de imagen a sonido aún no está implementada en la web actual.',
+          <>Un valor entre 0 y 1 se asigna a una de ocho notas MIDI [48, 50, 52, 55, 57, 60, 62, 64] mediante round(7 × valor): <strong>una proporción más alta de píxeles brillantes produce una nota más aguda</strong>. Esto describe un patrón de imagen; no mide directamente la velocidad, temperatura ni intensidad de una corriente.</>,
+          'La muestra del mapa toma cuatro fotogramas del vídeo seleccionado. El reproductor completo resaltará la región y la columna activa en sincronía con el sonido.',
         ],
         links: [],
       },
@@ -240,7 +212,7 @@ const landingCopy = {
         id: 'about-access',
         title: 'Accesibilidad',
         paragraphs: [
-          'El diseño utiliza una paleta de alto contraste, con texto claro sobre fondos oscuros, un color de acento diferenciado y un contorno de foco visible al navegar con teclado. Los enlaces, botones, encabezados, cabecera, contenido principal, secciones y pie utilizan HTML semántico; la ventana About usa un diálogo nativo con título asociado.',
+          <>El diseño utiliza una paleta de alto contraste, con texto claro sobre fondos oscuros, un color de acento diferenciado y <strong>un contorno de foco visible al navegar con teclado</strong>. Los enlaces, botones, encabezados, cabecera, contenido principal, secciones y pie utilizan HTML semántico; la ventana About usa un diálogo nativo con título asociado.</>,
           'Los enlaces, botones de idioma, navegación del diálogo y controles nativos de vídeo se pueden recorrer con teclado. La animación del globo respeta la preferencia de movimiento reducido y, si el movimiento está activado, se puede pausar. Los gráficos decorativos se ocultan a tecnologías de asistencia y los controles tienen nombres y estados accesibles cuando corresponde.',
           'Estas medidas están presentes en la interfaz actual. Aún es necesario completar las pruebas con teclado y lectores de pantalla; los controles de sonificación previstos todavía no están disponibles.',
         ],
@@ -250,7 +222,7 @@ const landingCopy = {
         id: 'about-technology',
         title: 'Tecnología',
         paragraphs: [
-          'La web actual está construida con React, TypeScript y Vite. Está previsto incorporar un backend de aplicación en una etapa posterior, pero aún no está implementado; por ahora, el catálogo es un JSON estático y el idioma y las reproducciones se guardan en el navegador.',
+          <>La web actual está construida con <strong>React, TypeScript y Vite</strong>. Está previsto incorporar un backend de aplicación en una etapa posterior, pero aún no está implementado; por ahora, el catálogo es un JSON estático y el idioma y las reproducciones se guardan en el navegador.</>,
           'El plan propone Web Audio API para el sonido; Python con NumPy y Pillow, además de FFmpeg, para preparar imágenes; y Vitest, Playwright, axe y NVDA para las pruebas. El MVP actual es estático y no tiene servicio backend.',
         ],
         links: [
@@ -261,8 +233,8 @@ const landingCopy = {
         id: 'about-licenses',
         title: 'Licencias y créditos',
         paragraphs: [
-          'El catálogo conserva los créditos incluidos con cada material de origen. Consulta el Earth Information Center para conocer las entidades publicadoras y las condiciones aplicables a cada conjunto de datos o visualización.',
-          'El repositorio todavía no especifica una licencia para el código, por lo que no se atribuye aquí ninguna licencia de código abierto. Creado por Sara y Lavinia en Málaga para Space Apps Challenge 2026.',
+          <>El catálogo <strong>conserva los créditos incluidos con cada material de origen</strong>. Consulta las fuentes originales para conocer las entidades publicadoras y las condiciones de uso.</>,
+          'El repositorio todavía no especifica una licencia para el código, por lo que no se atribuye aquí ninguna licencia de código abierto. Creado por Sara y Lavinia en Málaga.',
         ],
         links: [],
       },
@@ -279,7 +251,7 @@ const landingCopy = {
     observationTitle: 'Explora observaciones reales',
     observationDescription: 'Descubre visualizaciones creadas a partir de observaciones satelitales y modelos científicos. Explora océanos, bosques y la atmósfera; cada vídeo incluye sus fuentes originales.',
     soundTitle: 'Descubre el sonido de los patrones',
-    soundDescription: 'La sonificación conecta características como el brillo con notas musicales. Es la siguiente etapa de Earth Jukebox: convertir los cambios de una imagen en cambios que puedes escuchar.',
+    soundDescription: 'La sonificación conecta características como el brillo con notas musicales. Elige un punto del mapa para escuchar cómo suenan los patrones de su vídeo.',
     curiosityTitle: 'Sigue tu curiosidad',
     curiosityDescription: 'Elige un tema, reproduce una visualización y obsérvala de cerca. Lee la descripción y visita su fuente para entender qué representan sus colores, formas y movimientos.',
     readyTitle: '¿Listo para explorar?',
@@ -295,7 +267,7 @@ const landingCopy = {
     stepTwoDescription: ' Por ejemplo, los píxeles más brillantes pueden producir notas más agudas y los más oscuros, notas más graves.',
     stepThree: 'Sigue los cambios.',
     stepThreeDescription: ' Recorrer la imagen crea una secuencia de notas. Los patrones cambiantes se convierten en cambios que puedes escuchar.',
-    dialogOutro: 'La correspondencia determina qué representa cada sonido. Este ejemplo explica el concepto. La colección actual ofrece exploración visual; la sonificación está prevista para una etapa futura.',
+    dialogOutro: 'La correspondencia determina qué representa cada sonido. Elige un punto del mapamundi para probar una muestra breve de sonificación.',
   },
 } as const;
 
@@ -313,8 +285,8 @@ export default function Landing({ exploreUrl, language, onLanguageChange }: {
     <a className="landing-skip" href="#landing-main">{copy.skip}</a>
     <header className="landing-header">
       <a className="landing-brand" href="#top">
-        <span className="landing-mark" aria-hidden="true"><i /><i /><i /><i /><i /></span>
-        Earth Jukebox
+        <JukeboxLogo />
+        <span className="jukebox-wordmark">Earth Jukebox</span>
       </a>
       <div className="landing-header-actions">
         <a href="#about-information" className="landing-about-link" aria-haspopup="dialog"
@@ -331,41 +303,22 @@ export default function Landing({ exploreUrl, language, onLanguageChange }: {
           <h1 id="hero-title">{copy.heroTitle} <em>{copy.heroEmphasis}</em></h1>
           <p>{copy.heroDescription}</p>
           <div className="landing-actions">
-            <a className="landing-cta" href={exploreUrl}>{copy.explore} <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></a>
+            <a className="landing-cta" href={exploreUrl}><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z" /></svg>{copy.explore}</a>
             <a href="#sonification-explanation" className="landing-explanation-link" aria-haspopup="dialog"
               onClick={event => {
                 event.preventDefault();
                 explanationRef.current?.showModal();
-              }}>{copy.explanationLink}</a>
+              }}><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6" /></svg>{copy.explanationLink}</a>
           </div>
         </div>
         <div className="landing-visual">
-          <div className="landing-scene" aria-hidden="true">
-            <div className="landing-orbit landing-orbit-one" />
-            <div className="landing-orbit landing-orbit-two" />
-            <Earth paused={paused} />
-            <div className="landing-headphones">
-              <div className="headphone-band" />
-              <div className="headphone-arm headphone-arm-left" />
-              <div className="headphone-arm headphone-arm-right" />
-              <div className="headphone-cup headphone-cup-left"><span /></div>
-              <div className="headphone-cup headphone-cup-right"><span /></div>
-            </div>
-            <svg className="landing-wave" data-paused={paused} viewBox="0 0 660 120" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="landing-signal">
-                  <stop stopColor="currentColor" stopOpacity="0" />
-                  <stop offset=".22" stopColor="currentColor" />
-                  <stop offset=".84" stopColor="currentColor" />
-                  <stop offset="1" stopColor="currentColor" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path d={waveform} fill="none" stroke="url(#landing-signal)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
-            </svg>
+          <div className="landing-player">
+            <HeroIllustration paused={paused} />
+            <button className="landing-motion" type="button" aria-label={paused ? copy.resume : copy.pause}
+              onClick={() => setPaused(value => !value)}>
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d={paused ? 'M8 5l11 7-11 7z' : 'M7 5h4v14H7zm6 0h4v14h-4z'} /></svg>
+            </button>
           </div>
-          <button className="landing-motion" type="button" onClick={() => setPaused(value => !value)}>
-            <span aria-hidden="true">{paused ? '▷' : 'Ⅱ'}</span> {paused ? copy.resume : copy.pause}
-          </button>
         </div>
       </section>
       <section className="landing-process" aria-labelledby="process-title">
@@ -373,17 +326,28 @@ export default function Landing({ exploreUrl, language, onLanguageChange }: {
         <h2 id="process-title">{copy.processTitle}</h2>
         <div className="landing-process-grid">
           <article className="landing-process-card">
-            <span className="landing-process-icon" aria-hidden="true">&#127757;</span>
+            <svg className="landing-process-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <ellipse cx="12" cy="12" rx="4" ry="9" />
+              <path d="M3 12h18" />
+            </svg>
             <h3>{copy.observationTitle}</h3>
             <p>{copy.observationDescription}</p>
           </article>
           <article className="landing-process-card">
-            <span className="landing-process-icon" aria-hidden="true">&#9835;</span>
+            <svg className="landing-process-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 17V6l12-3v11M8 10l12-3" />
+              <circle cx="5.5" cy="17.5" r="2.5" />
+              <circle cx="17.5" cy="14.5" r="2.5" />
+            </svg>
             <h3>{copy.soundTitle}</h3>
             <p>{copy.soundDescription}</p>
           </article>
           <article className="landing-process-card">
-            <span className="landing-process-icon" aria-hidden="true">&#9678;</span>
+            <svg className="landing-process-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <circle cx="12" cy="12" r="5" />
+            </svg>
             <h3>{copy.curiosityTitle}</h3>
             <p>{copy.curiosityDescription}</p>
           </article>
@@ -392,7 +356,7 @@ export default function Landing({ exploreUrl, language, onLanguageChange }: {
       <section className="landing-final-cta" aria-labelledby="ready-title">
         <h2 id="ready-title">{copy.readyTitle}</h2>
         <p>{copy.readyDescription}</p>
-        <a className="landing-cta" href={exploreUrl}>{copy.explore} <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></a>
+        <a className="landing-cta" href={exploreUrl}><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 5l11 7-11 7z" /></svg>{copy.explore}</a>
       </section>
     </main>
     <footer className="landing-closing-footer">
@@ -411,7 +375,6 @@ export default function Landing({ exploreUrl, language, onLanguageChange }: {
       }}>
       <div className="about-dialog-header">
         <div>
-          <p>{copy.aboutEyebrow}</p>
           <h2 id="about-dialog-title">{copy.aboutDialogTitle}</h2>
         </div>
         <button type="button" className="sonification-close" aria-label={copy.aboutClose}
@@ -424,7 +387,14 @@ export default function Landing({ exploreUrl, language, onLanguageChange }: {
         <div className="about-dialog-content">
           {copy.aboutSections.map(section => <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`}>
             <h3 id={`${section.id}-title`}>{section.title}</h3>
-            {section.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+            {'note' in section && <p>{section.note}</p>}
+            {section.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+            {'videoLabel' in section && <figure className="about-source-video">
+              <video controls playsInline preload="none" aria-label={section.videoLabel}
+                poster={forestHeightMediaUrl + 'GEDI_global_w_colorbar_0900_print.jpg'}
+                src={forestHeightMediaUrl + 'GEDI_global_w_colorbar_1080p60.mp4'} />
+              <figcaption>{section.videoLabel}</figcaption>
+            </figure>}
             {section.links.length > 0 && <ul>
               {section.links.map(link => <li key={link.href}><a href={link.href} target="_blank" rel="noreferrer">{link.label} ↗</a></li>)}
             </ul>}

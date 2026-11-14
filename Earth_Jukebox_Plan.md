@@ -1,7 +1,19 @@
 # Earth Jukebox — Plan completo de implementación
 
-Fecha: 13 de noviembre de 2026. Estado: diseño listo para desarrollo; aplicación todavía no implementada.
+Actualizado el 14 de noviembre de 2026. Estado: explorador geográfico en desarrollo.
 Proyecto: nasa App. Documento de trabajo en español.
+
+## Actualización del explorador · 14 de noviembre de 2026
+
+**Hear the planet** abre un mapamundi grande con los contornos terrestres en el color principal. Las tarjetas, sus filtros y su reproductor se conservan debajo del mapa.
+
+- Revisar la [galería del EIC](https://svs.gsfc.nasa.gov/gallery/earth-information-center/) y seleccionar hasta dos o tres piezas por país cuando haya material relevante y verificable. Publicar primero una selección distribuida por el planeta. Las piezas transfronterizas y globales se ubican en las zonas que documentan, con su alcance indicado.
+- Cada punto abre una ficha con lugar, título, descripción, miniatura y acción para escuchar. Debe funcionar con ratón, teclado y pantalla táctil, y ofrecer un selector por lugar cuando los puntos estén próximos entre sí.
+- Generar una muestra de sonido a partir de fotogramas del vídeo elegido. Reutilizar el método de ocho columnas, brillo y notas MIDI. La muestra se inicia tras una acción explícita y deja de sonar al cerrar la ficha de reproducción.
+- Servir la geometría simplificada localmente, sin mapas de teselas. Montar una sola vista previa, pedir su miniatura cuando se abre y cargar el vídeo y el código de sonificación solo al pulsar Escuchar. Mantener la carga diferida de las tarjetas.
+- Verificar el acceso desde la portada, la selección y el cierre con teclado y toque, la carga inicial sin vídeos, y el acceso al catálogo aunque falle un recurso del mapa.
+
+Las secciones siguientes conservan el diseño del reproductor completo y sus pruebas para las siguientes iteraciones.
 
 ## 1. Objetivo y alcance
 
