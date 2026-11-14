@@ -7,6 +7,7 @@ const sortOptions = ['Release date', 'Update date', 'Popularity (this browser)']
 type SortOption = typeof sortOptions[number];
 
 function readPlayCounts(): Record<string, number> {
+  
   try {
     const stored: unknown = JSON.parse(localStorage.getItem(playbackStorageKey) ?? '{}');
     if (stored && typeof stored === 'object' && !Array.isArray(stored)) {
