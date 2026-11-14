@@ -8,3 +8,9 @@
 .catalogue-controls label{display:grid;gap:6px;max-width:100%;color:#b3bec2;font-size:12px}
 .catalogue-controls select{max-width:100%;background:#10191e;border:1px solid #303a40;border-radius:6px;padding:9px 12px;color:#eff3ed;font:inherit}
 .catalogue-controls select:focus-visible{outline:3px solid #d4ee99;outline-offset:3px}
+.topbar-actions{display:flex;align-items:center;gap:18px}
+.language-switch{display:inline-flex;flex:0 0 auto;align-items:center;gap:2px;padding:3px;border:1px solid #35423a;border-radius:999px;background:#0d1518}
+.language-switch button{min-height:34px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:#aab8b2;font-size:11px;font-weight:600}
+.language-switch button[aria-pressed=true]{background:#d4ee99;color:#182416}
+.language-switch button:hover:not([aria-pressed=true]){color:#eff3ed}
+@media(max-width:720px){.topbar{height:auto;min-height:75px;flex-wrap:wrap;padding-block:10px}.topbar-actions{gap:8px}.language-switch button{padding-inline:8px}}
