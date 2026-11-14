@@ -69,7 +69,11 @@ export default function App() {
     fetch('./catalog-recent.json', { signal: controller.signal })
       .then(r => { if (!r.ok) throw new Error('Could not load the catalogue.'); return r.json(); })
       .then(data => { if (!isCatalog(data)) throw new Error('The catalogue format is invalid.'); data.videos.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt) || b.id.localeCompare(a.id)); setCatalog(data); setSelectedId(data.videos[0].id); })
-      .catch(e => { if (e.name !== 'AbortError') setLoadError(e.message); });
+      .catch(e => {
+        if (e.name !== 'AbortError') {
+          setLoadError('The collection could not be loaded. Check your connection and try again.');
+        }
+      });
     return () => controller.abort();
   }, [attempt]);
   const videos = catalog?.videos ?? [];
