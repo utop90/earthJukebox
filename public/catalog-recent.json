@@ -1,53 +1,150 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-13",
+  "checkedAt": "2026-11-14",
   "importMode": "manually-verified-source-links",
-  "selectionNote": "Publicaciones recientes EIC verificadas; selección no exhaustiva.",
+  "selectionNote": "A curated selection of visualisations with verified source links.",
   "videos": [
     {
-      "credit": "NASA's Scientific Visualization Studio · Kel Elkins",
+      "updatesDaily": true,
+      "credit": "Scientific Visualization Studio · Kel Elkins",
       "publishedAt": "2026-10-27",
       "updatedAt": "2026-11-12",
-      "category": "Océanos",
+      "category": "Oceans",
       "id": "5688",
-      "title": "El Pacífico: temperatura del océano",
-      "description": "Dos globos comparan las anomalías de temperatura superficial del Pacífico en 2025 y 2026. NASA actualiza esta visualización diariamente.",
+      "title": "Pacific Ocean Temperatures",
+      "description": "Two globes compare Pacific sea surface temperature anomalies in 2025 and 2026.",
       "resolution": "3340 × 1670",
-      "sizeLabel": "≈ 16,1 MB",
-      "updatesDaily": true,
+      "sizeLabel": "≈ 16.1 MB",
       "pageUrl": "https://svs.gsfc.nasa.gov/5688/",
       "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005688/elnino_eic_ssta_globes_wLegend_3340x1670_latest.mp4",
-      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005688/elnino_eic_ssta_globes_wLegend_1670x835_latest.jpg"
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005688/elnino_eic_ssta_globes_wLegend_1670x835_latest.jpg",
+      "tags": [
+        "Earth Science",
+        "Hyperwall",
+        "Physical oceanography",
+        "Ocean Temperature",
+        "Sea Surface Temperature",
+        "Climate"
+      ]
     },
     {
-      "credit": "NASA's Scientific Visualization Studio · Kel Elkins",
+      "updatesDaily": true,
+      "credit": "Scientific Visualization Studio · Kel Elkins",
       "publishedAt": "2026-10-27",
       "updatedAt": "2026-11-12",
-      "category": "Océanos",
+      "category": "Oceans",
       "id": "5687",
-      "title": "Los colores del océano con PACE",
-      "description": "Una comparación visual del color aparente del océano en 2025 y 2026 a partir de PACE. NASA incorpora nuevos datos diariamente.",
+      "title": "Ocean Colour with PACE",
+      "description": "A comparison of apparent ocean colour in 2025 and 2026 using data from the PACE satellite.",
       "resolution": "1800 × 900",
-      "sizeLabel": "≈ 8,6 MB",
-      "updatesDaily": true,
+      "sizeLabel": "≈ 8.6 MB",
       "pageUrl": "https://svs.gsfc.nasa.gov/5687/",
       "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005687/elnino_avw_2025_2026_daily_1900x800.mp4",
-      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005687/elnino_avw_2025_2026_daily_1900x800.jpg"
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005687/elnino_avw_2025_2026_daily_1900x800.jpg",
+      "tags": [
+        "Earth Science",
+        "Hyperwall",
+        "Ocean Colour"
+      ]
     },
     {
-      "credit": "NASA's Scientific Visualization Studio · Kel Elkins",
+      "updatesDaily": false,
+      "credit": "Scientific Visualization Studio · Kel Elkins",
       "publishedAt": "2026-10-20",
       "updatedAt": "2026-10-20",
-      "category": "Sistema solar",
+      "category": "Solar System",
       "id": "5674",
-      "title": "Un viaje por el sistema solar",
-      "description": "Un recorrido que comienza junto a la Tierra y se aleja hacia los planetas más distantes. Creado para las pantallas panorámicas del Earth Information Center.",
+      "title": "A Journey Through the Solar System",
+      "description": "A panoramic journey that starts near Earth and travels out to the most distant planets.",
       "resolution": "3840 × 1080",
-      "sizeLabel": "48,4 MB",
-      "updatesDaily": false,
+      "sizeLabel": "48.4 MB",
       "pageUrl": "https://svs.gsfc.nasa.gov/5674/",
       "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005674/solar_system_EIC_3840x1080.mp4",
-      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005674/solar_system.Still004_preview.jpg"
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005674/solar_system.Still004_preview.jpg",
+      "tags": [
+        "Planetary Orbits"
+      ]
+    },
+    {
+      "updatesDaily": false,
+      "id": "5505",
+      "title": "The Agulhas Current",
+      "category": "Oceans",
+      "description": "A panoramic view of the currents and eddies off southern Africa.",
+      "pageUrl": "https://svs.gsfc.nasa.gov/5505/",
+      "credit": "Scientific Visualization Studio",
+      "resolution": "3840 × 1080",
+      "sizeLabel": "178.4 MB",
+      "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005505/OceanFlows_AgulhasCurrent_3840x1080.mp4",
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005505/OceanFlows_3840x108030fps.png",
+      "tags": [
+        "Earth Science",
+        "Hyperwall",
+        "Physical oceanography"
+      ],
+      "publishedAt": "2024-03-25",
+      "updatedAt": "2026-01-15"
+    },
+    {
+      "updatesDaily": false,
+      "id": "4950",
+      "title": "Mapping Forest Height",
+      "category": "Forests",
+      "description": "Explore vegetation height around the world using data from GEDI, an instrument aboard the International Space Station.",
+      "pageUrl": "https://svs.gsfc.nasa.gov/4950/",
+      "credit": "Scientific Visualization Studio",
+      "resolution": "1920 × 1080",
+      "sizeLabel": "17.7 MB",
+      "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/GEDI_global_w_colorbar_1080p60.mp4",
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/GEDI_global_w_colorbar_0900_print.jpg",
+      "tags": [
+        "Earth Science",
+        "Hyperwall",
+        "HDTV",
+        "Forest Science"
+      ],
+      "publishedAt": "2021-10-29",
+      "updatedAt": "2025-04-01"
+    },
+    {
+      "updatesDaily": false,
+      "id": "4993",
+      "title": "The Spread of the Dixie Fire",
+      "category": "Wildfires",
+      "description": "A sequence of satellite detections shows how the Dixie Fire spread across California in 2021.",
+      "pageUrl": "https://svs.gsfc.nasa.gov/4993/",
+      "credit": "Scientific Visualization Studio",
+      "resolution": "1920 × 1080",
+      "sizeLabel": "172.9 MB",
+      "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021_p30_1080p30.mp4",
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021.7135_print.jpg",
+      "tags": [
+        "Earth Science",
+        "HDTV"
+      ],
+      "publishedAt": "2022-06-01",
+      "updatedAt": "2025-06-23"
+    },
+    {
+      "updatesDaily": false,
+      "id": "5572",
+      "title": "Aerosols in the Atmosphere",
+      "category": "Atmosphere",
+      "description": "Follow tiny airborne particles around the globe in a visualisation based on the GEOS atmospheric model.",
+      "pageUrl": "https://svs.gsfc.nasa.gov/5572/",
+      "credit": "Joseph V. Ardizzone and Helen-Nicole Kostis",
+      "resolution": "1920 × 540",
+      "sizeLabel": "175.2 MB",
+      "videoUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005572/Aerosols_1920x540_30p.mp4",
+      "posterUrl": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005572/Aerosols_Annotations_1920x540_30p_0000.png",
+      "tags": [
+        "Earth Science",
+        "Atmospheric science",
+        "Hyperwall",
+        "Aerosols"
+      ],
+      "publishedAt": "2025-08-08",
+      "updatedAt": "2026-04-15"
     }
   ]
 }

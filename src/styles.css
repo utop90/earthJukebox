@@ -3,3 +3,8 @@
 
 
 .publication{font-size:10px;color:#b8c5c9;line-height:1.8;margin:14px 0 0}.card-body p.publication{margin:12px 0 0;text-transform:none;letter-spacing:0;color:#b8c5c9}
+
+.catalogue-controls{display:flex;flex-wrap:wrap;gap:12px 20px;margin:24px 0}
+.catalogue-controls label{display:grid;gap:6px;max-width:100%;color:#b3bec2;font-size:12px}
+.catalogue-controls select{max-width:100%;background:#10191e;border:1px solid #303a40;border-radius:6px;padding:9px 12px;color:#eff3ed;font:inherit}
+.catalogue-controls select:focus-visible{outline:3px solid #d4ee99;outline-offset:3px}
