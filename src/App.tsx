@@ -1,3 +1,4 @@
+import SonifiedVideo from './SonifiedVideo';
 import { useRef, useState } from 'react';
 import JukeboxLogo from './JukeboxLogo';
 import LanguageSwitch, { type Language } from './LanguageSwitch';
@@ -100,7 +101,7 @@ export default function App({ language, onLanguageChange }: {
         </div>
         {selected && <>
         {failed ? <p role="alert">{t.error}</p> :
-          <video className="explore-modal-video" controls playsInline preload="none"
+          <SonifiedVideo key={selected.id} videoId={selected.id} language={language} className="explore-modal-video" controls playsInline preload="metadata"
             src={(fallback && selected.fallbackSrc) || (language === 'es' && selected.spanishSrc) || selected.src}
             poster={(language === 'es' && selected.spanishPoster) || selected.poster}
             aria-label={selected.title[language]}
@@ -116,7 +117,7 @@ export default function App({ language, onLanguageChange }: {
             }}>
             {selected.captions?.map(track => <track key={track.language} kind="captions"
               src={track.src} srcLang={track.language} label={track.language === 'es' ? 'Español' : 'English'} />)}
-          </video>}
+          </SonifiedVideo>}
         <div className="explore-sheet-meta">
           {selected.period && <span>{selected.period[language]}</span>}
           <a href={nasaSource(selected.id)}>{t.source} · NASA SVS</a>

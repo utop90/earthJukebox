@@ -1,3 +1,4 @@
+import SonifiedVideo from './SonifiedVideo';
 import { useRef, useState, type CSSProperties } from 'react';
 import type { Language } from './LanguageSwitch';
 import { mapPlaces, type MapVideo } from './mapVideos';
@@ -11,10 +12,6 @@ export default function WorldMap({ language, collectionLabel }: { language: Lang
   const [selectedRegion, setSelectedRegion] = useState<number | null>(null);
   const destination = selectedRegion === null ? null : mapPlaces[selectedRegion];
   const [listening, setListening] = useState<MapVideo | null>(null);
-  const stopSound = useRef<(() => void) | null>(null);
-  const [failed, setFailed] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const [loading, setLoading] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const preview = useRef<HTMLElement>(null);
   const markers = useRef<Array<HTMLButtonElement | null>>([]);
@@ -26,57 +23,6 @@ export default function WorldMap({ language, collectionLabel }: { language: Lang
     if (index === active) return;
     setActive(index);
     setVideoIndex(0);
-  }
-
-  function stopPlayback() {
-    stopSound.current?.();
-    stopSound.current = null;
-    setLoading(false);
-    setPlaying(false);
-  }
-
-  function playSound(choice: MapVideo) {
-    stopPlayback();
-    setFailed(false);
-    setLoading(true);
-    if (!window.AudioContext) {
-      setLoading(false);
-      setPlaying(false);
-      setFailed(true);
-      return;
-    }
-    const context = new AudioContext();
-    const ready = context.resume();
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => {
-      setLoading(false);
-      setFailed(true);
-      controller.abort();
-      if (context.state !== 'closed') void context.close();
-    }, 20000);
-    stopSound.current = () => {
-      clearTimeout(timeout);
-      controller.abort();
-      if (context.state !== 'closed') void context.close();
-    };
-    void Promise.all([ready, import('./frameSound')])
-      .then(([, { playFrameSound }]) => playFrameSound(choice.video, context, controller.signal, () => {
-        setLoading(false);
-        setPlaying(true);
-      }))
-      .then(() => {
-        if (!controller.signal.aborted) setPlaying(false);
-        if (context.state !== 'closed') void context.close();
-      })
-      .catch(() => {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-          setPlaying(false);
-          setFailed(true);
-          controller.abort();
-          if (context.state !== 'closed') void context.close();
-        }
-      }).finally(() => clearTimeout(timeout));
   }
 
   function closePreview() {
@@ -141,7 +87,7 @@ export default function WorldMap({ language, collectionLabel }: { language: Lang
           <button type="button" className="world-listen" onClick={() => {
             setListening(video);
             dialog.current?.showModal();
-            playSound(video);
+
           }}>{es ? 'Escuchar' : 'Listen'}</button>
         </div>
       </article>}
@@ -149,24 +95,15 @@ export default function WorldMap({ language, collectionLabel }: { language: Lang
       }}</Globe>
     </div>
     <dialog className="world-audio" ref={dialog} aria-labelledby="world-audio-title" onClose={() => {
-      stopPlayback();
+
       setListening(null);
     }}>
       {listening && <>
         <button type="button" className="world-close" aria-label={es ? 'Cerrar y detener' : 'Close and stop'} onClick={() => dialog.current?.close()}>×</button>
         <h2 id="world-audio-title">{listening.title}</h2>
-        <video className="world-video" src={listening.video} poster={listening.image}
-          aria-label={listening.title} controls playsInline muted autoPlay />
-        <section className="world-sound-player" aria-labelledby="world-sound-title">
-          <h3 id="world-sound-title">{es ? 'Sonificación' : 'Sonification'}</h3>
-          <button type="button" className="world-listen" onClick={() => {
-            if (playing || loading) stopPlayback();
-            else playSound(listening);
-          }}>{playing || loading ? (es ? 'Detener sonido' : 'Stop sound') : (es ? 'Reproducir sonido' : 'Play sound')}</button>
-          {loading && <p role="status">{es ? 'Preparando el sonido…' : 'Preparing the sound…'}</p>}
-          {!failed && <p>{es ? 'Los píxeles más brillantes producen notas más agudas.' : 'Brighter pixels produce higher notes.'}</p>}
-          {failed && <p role="alert">{es ? 'No se pudo leer el vídeo para generar el sonido.' : 'The video could not be read to generate sound.'}</p>}
-        </section>
+        <SonifiedVideo key={listening.video} videoId={listening.id} language={language}
+          className="world-video" src={listening.video} poster={listening.image}
+          aria-label={listening.title} controls />
       </>}
     </dialog>
   </section>;

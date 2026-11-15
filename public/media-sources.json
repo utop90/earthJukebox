@@ -1,0 +1,105 @@
+{
+  "credit": "NASA Scientific Visualization Studio; original credits linked from each video.",
+  "items": [
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/GEDI_global_w_colorbar_1080p60.mp4",
+      "path": "media/01-GEDI_global_w_colorbar_1080p60.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005382/sea_ice_2024_min_1080p60.mp4",
+      "path": "media/02-sea_ice_2024_min_1080p60.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004993/Dixie_fire_2021_p30_1080p30.mp4",
+      "path": "media/03-Dixie_fire_2021_p30_1080p30.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005425/perpetual_ocean2_CLOSE_093_clean_noDate_1080p30.mp4",
+      "path": "media/04-perpetual_ocean2_CLOSE_093_clean_noDate_1080p30.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005148/MC02_stage3_GMAO_near_surface_wind_2048x1024_en.mp4",
+      "path": "media/05-MC02_stage3_GMAO_near_surface_wind_2048x1024_en.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005011/iss_lightning_sphere_07312023.mp4",
+      "path": "media/06-iss_lightning_sphere_07312023.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005200/a005207/2023GISTEMP_Map_HD.mp4",
+      "path": "media/07-2023GISTEMP_Map_HD.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_English_degC_2160p60.mp4",
+      "path": "media/08-GISTEMP_Spiral_English_degC_2160p60.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a004900/a004950/GEDI_global_w_colorbar_1080p60.webm",
+      "path": "media/09-GEDI_global_w_colorbar_1080p60.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005505/OceanFlows_AgulhasCurrent_3840x1080.mp4",
+      "path": "media/10-OceanFlows_AgulhasCurrent_3840x1080.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005300/a005313/nightlights_flat_series_and_change_wZooms_13_EIC_2160p30_h265.mp4",
+      "path": "media/11-nightlights_flat_series_and_change_wZooms_13_EIC_2160p30_h265.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005046/arctic_sea_ice_2024_w_dates.mp4",
+      "path": "media/12-arctic_sea_ice_2024_w_dates.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004897/imerganomrob_w_dates_1080p15.mp4",
+      "path": "media/13-imerganomrob_w_dates_1080p15.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005516/seaLevelRise_2024_English.mp4",
+      "path": "media/14-seaLevelRise_2024_English.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005064/antarctic_sea_ice_2024_w_dates.mp4",
+      "path": "media/15-antarctic_sea_ice_2024_w_dates.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005600/a005631/CanadianWildfires2023_SmokeIntensity_short_1920x1080.mp4",
+      "path": "media/16-CanadianWildfires2023_SmokeIntensity_short_1920x1080.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005500/a005516/seaLevelRise_2024_Spanish.mp4",
+      "path": "media/17-seaLevelRise_2024_Spanish.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005190/GISTEMP_Spiral_Spanish_degC_2160p60.mp4",
+      "path": "media/18-GISTEMP_Spiral_Spanish_degC_2160p60.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a030000/a031000/a031053/CMG_0_05_Deg_Monthly_NDVI_1080p.mp4",
+      "path": "media/19-CMG_0_05_Deg_Monthly_NDVI_1080p.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005024/co2airs_60South_1920x1080p30.mp4",
+      "path": "media/20-co2airs_60South_1920x1080p30.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a005400/a005475/nightlights_2012-2024_KSC_SOS_04_plus2_4096x2048_30p_h264.mp4",
+      "path": "media/21-nightlights_2012-2024_KSC_SOS_04_plus2_4096x2048_30p_h264.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a000000/a002800/a002893/eqmollweide_1080p30.mp4",
+      "path": "media/22-eqmollweide_1080p30.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a030000/a031100/a031178/GRACE_GLOBAL_7D_RTZSM_030_1080p10.webm",
+      "path": "media/23-GRACE_GLOBAL_7D_RTZSM_030_1080p10.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a030000/a031100/a031178/GRACE_GLOBAL_7D_RTZSM_030_1080p10.mp4",
+      "path": "media/24-GRACE_GLOBAL_7D_RTZSM_030_1080p10.mp4"
+    },
+    {
+      "source": "https://svs.gsfc.nasa.gov/vis/a010000/a015000/a015025/Saudi_Arabia_Crops_-_Web.mp4",
+      "path": "media/25-Saudi_Arabia_Crops_-_Web.mp4"
+    }
+  ]
+}
