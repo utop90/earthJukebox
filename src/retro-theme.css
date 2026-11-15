@@ -16,19 +16,13 @@
 .jukebox-wordmark {
   font: 800 clamp(13px, 1.7vw, 19px)/1 var(--retro-display);
   letter-spacing: .01em;
-  color: #f7f2ff;
-  background: linear-gradient(180deg, #ffffff 18%, #e6daff 62%, #cdb8ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(1px 1px 0 #5279d4) drop-shadow(2px 2px 0 #7f55bf) drop-shadow(0 3px 5px #1b1043aa);
+  color: #e6daff;
 }
 .jukebox-logo {
   display: inline-block;
   width: 30px;
   height: 30px;
   flex: 0 0 30px;
-  filter: drop-shadow(0 0 6px #c0a0ff59);
 }
 .landing-copy h1, .planet-heading h1 {
   font-family: var(--retro-display);

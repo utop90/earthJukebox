@@ -4,7 +4,7 @@ import './planet-questions.css';
 
 const level = nasaVideo('5516', 'a000000/a005500/a005516', 'seaLevelRise_2024_English.mp4', 'seaLevelRise_2024.jpg');
 
-const tracks = [
+const questionVideos = [
   {
     ...level,
     spanishSrc: level.src.replace('English', 'Spanish'),
@@ -65,19 +65,58 @@ const tracks = [
   },
 ];
 
-export default function PlanetQuestions({ language, onSelect }: { language: Language; onSelect: (track: VideoCard) => void }) {
+const intervals = [[1993, 2024], [2023, 2023], [2000, 2000], [2021, 2021], [2002, 2022], [2012, 2023], [1980, 1995], [2003, 2021], [2024, 2025]];
+const periods = [
+  localize('1993–2024', '1993–2024'),
+  localize('6–10 de junio de 2023', '6–10 June 2023'),
+  localize('Desde febrero de 2000 · fin por confirmar', 'From February 2000 · end to be confirmed'),
+  localize('14 de julio–22 de octubre de 2021', '14 July–22 October 2021'),
+  localize('Septiembre de 2002–octubre de 2022', 'September 2002–October 2022'),
+  localize('2012–2023', '2012–2023'),
+  localize('1980–1995', '1980–1995'),
+  localize('2003–2021', '2003–2021'),
+  localize('2024–enero de 2025', '2024–January 2025'),
+];
+export const tracks = questionVideos.map((track, index) => ({ ...track, period: periods[index] }));
+
+export function TrackCard({ track, index, language, active, playing, duration, area, onSelect }: {
+  track: VideoCard; index: number; language: Language; active: boolean; playing: boolean;
+  duration?: string; area?: string; onSelect: (track: VideoCard) => void;
+}) {
+  const [start, end] = intervals[index] ?? [];
+  const scale = Math.max(1, new Date().getFullYear() - 1700);
+  const label = area ?? track.keyword?.[language];
+  return <button type="button" className="planet-track" aria-pressed={active} aria-haspopup="dialog"
+    onClick={() => onSelect(track)}>
+    <span className="planet-track-thumb">
+      <img src={(language === 'es' && track.spanishPoster) || track.poster} alt="" decoding="async"
+        loading={index === 0 ? 'eager' : 'lazy'} />
+      <span className="planet-track-play" aria-hidden="true">{active ? (playing ? '▂▅▃' : '✓ ▶') : '▶'}</span>
+    </span>
+    <span className="planet-track-copy">
+      <span className="explore-meta">
+        {String(index + 1).padStart(2, '0')}{label && ` · ${label}`}
+      </span>
+      <strong>{track.title[language]}</strong>
+      {!area && track.detail && <span className="explore-meta">{track.detail[language]}</span>}
+      {area && <>
+        <span className="explore-meta">{track.period?.[language]}</span>
+        <span className="planet-ruler" aria-hidden="true"><i style={{ left: (start - 1700) / scale * 100 + '%', width: (end - start) / scale * 100 + '%' }} /></span>
+      </>}
+      {duration && <span className="explore-meta">{duration}</span>}
+    </span>
+  </button>;
+}
+
+export default function PlanetQuestions({ language, selectedId, playing, durations, onSelect }: {
+  language: Language; selectedId: string; playing: boolean; durations: Record<string, string>;
+  onSelect: (track: VideoCard) => void;
+}) {
   return <>
     <div className="planet-tracks">
-      {tracks.map((track, index) => <button key={track.id} type="button" className="planet-track" aria-haspopup="dialog" onClick={() => onSelect(track)}>
-        <img className="planet-track-poster" src={(language === 'es' && track.spanishPoster) || track.poster}
-          alt="" decoding="async" loading={index < 3 ? 'eager' : 'lazy'} fetchPriority={index === 0 ? 'high' : 'auto'} />
-        <span className="planet-track-copy">
-          <span className="planet-area">{track.area[language]}</span>
-          <strong className="planet-question">{track.title[language]}</strong>
-          <span className="planet-period">{track.detail[language]}</span>
-        </span>
-        <span className="planet-track-play" aria-hidden="true">▶</span>
-      </button>)}
+      {tracks.map((track, index) => <TrackCard key={track.id} track={track}
+        area={track.area[language]} active={track.id === selectedId} duration={durations[track.id]}
+        {...{ index, language, playing, onSelect }} />)}
     </div>
   </>;
 }
