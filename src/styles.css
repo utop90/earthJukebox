@@ -15,17 +15,21 @@
 .language-switch button:hover:not([aria-pressed=true]){color:#eff3ed}
 @media(max-width:720px){.topbar{height:auto;min-height:75px;flex-wrap:wrap;padding-block:10px}.topbar-actions{gap:8px}.language-switch button{padding-inline:8px}}
 .sonification-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-top: 12px; }
-.sonification-controls label { display: flex; align-items: center; gap: 8px; font-size: .85rem; }
 .sonification-controls input { accent-color: var(--listen-accent, #8af1f5); }
 .sonification-controls p { flex-basis: 100%; margin: 0; font-size: .8rem; color: #d8cce8; }
 .sonification-controls button { color: var(--listen-accent, #8af1f5); background: #28203d; border: 1px solid currentColor; border-radius: 8px; min-height: 44px; padding: 6px 12px; }
-.sonified-player { overflow: hidden; border-radius: 8px; background: #100c23; }
+.sonified-player { position: relative; overflow: hidden; border-radius: 10px; background: #100c23; }
 .sonified-player .sonification-controls { padding: 12px; }
-.sonification-controls .sonification-play { font-weight: 700; }
+.sonification-controls .sonification-play { font-weight: 500; border: 0; background: transparent; padding-inline: 4px; }
 .sonification-seek { flex: 1 1 140px; min-width: 100px; }
 .sonification-time { font-size: .8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .sonification-controls :focus-visible { outline: 2px solid var(--listen-accent, #8af1f5); outline-offset: 3px; }
 .sonified-player:fullscreen { display: flex; flex-direction: column; justify-content: center; padding: 16px; overflow-y: auto; }
-.sonified-player:fullscreen video { flex: 1; min-height: 0; max-height: calc(100dvh - 180px); object-fit: contain; }
+.sonified-player:fullscreen video { flex: 1; min-height: 0; max-height: calc(100dvh - 90px); object-fit: contain; }
 .sonified-player:fullscreen .sonification-controls { flex-shrink: 0; }
-.sonified-player .explore-modal-video { max-height: calc(100dvh - 310px); margin-top: 0; }
+.sonified-player .explore-modal-video { max-height: calc(100dvh - 230px); margin-top: 0; }
+.sonified-player .sonification-fullscreen { position: absolute; z-index: 2; top: 10px; right: 10px; width: 40px; height: 40px; display: grid; place-items: center; padding: 10px; border: 0; border-radius: 50%; color: #fff; background: #100c2399; cursor: pointer; }
+.sonification-fullscreen:hover { background: #100c23df; color: var(--listen-accent, #9bb8ff); }
+.sonification-fullscreen svg { width: 20px; height: 20px; }
+.sonification-fullscreen:focus-visible { outline: 2px solid #9bb8ff; outline-offset: 2px; }
+@media(max-width:520px) { .sonification-controls { gap: 8px; } .sonification-play { font-size: 12px; } .sonification-seek { min-width: 40px; flex-basis: 40px; } .sonification-time { font-size: 11px; } }

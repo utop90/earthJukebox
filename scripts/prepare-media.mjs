@@ -19,7 +19,8 @@ function convert(input, output) {
   return new Promise((resolve, reject) => {
     const child = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-i', input,
       '-an', '-vf', 'scale=w=min(960\\,iw):h=-2', '-r', '30', '-c:v', 'libx264',
-      '-preset', 'fast', '-crf', '27', '-threads', '2', '-pix_fmt', 'yuv420p',
+      '-preset', 'fast', '-crf', '27', '-maxrate', '1800k', '-bufsize', '3600k',
+      '-threads', '2', '-pix_fmt', 'yuv420p',
       '-movflags', '+faststart', output], { windowsHide: true, stdio: ['ignore', 'ignore', 'pipe'] });
     let message = '';
     child.stderr.on('data', data => { message += data; });

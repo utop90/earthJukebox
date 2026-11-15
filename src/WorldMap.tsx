@@ -85,6 +85,7 @@ export default function WorldMap({ language, collectionLabel }: { language: Lang
             {place.videos.map((item, index) => <option value={index} key={item.id}>{item.title}</option>)}
           </select>}
           <button type="button" className="world-listen" onClick={() => {
+
             setListening(video);
             dialog.current?.showModal();
 

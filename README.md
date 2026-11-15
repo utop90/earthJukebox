@@ -59,6 +59,13 @@ Dates and selections are reviewed manually. The importer refreshes links but **d
 
 ## Testing :
 
+The player uses MP4s with embedded AAC sonification in `public/media/audio`.
+Audio is generated from each video's image brightness, not recorded Earth sounds.
+To regenerate it, run `npm run media:sonify` (requires FFmpeg and FFprobe).
+Run `npm run test:audio` to decode every audio track, check its duration and
+volume, and reject silent gaps longer than half a second. Video streams are
+copied without re-encoding. The manifest switches only after all files finish.
+
 ```bash
 npm test
 npm run build

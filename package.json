@@ -8,10 +8,13 @@
   },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
+    "prebuild": "node --test tests/media-assets.test.mjs",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "import:nasa": "node scripts/import-nasa.mjs",
     "test": "node --test tests/*.test.mjs",
+    "media:sonify": "node scripts/sonify-media.mjs",
+    "test:audio": "node scripts/verify-audio.mjs",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
