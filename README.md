@@ -1,4 +1,4 @@
-# 🛰️🌍 Earth Jukebox
+# 🛰️🎧🌍 Earth Jukebox🌍🎧🛰️
 ### NASA Space Apps Challenge 2026 | Space Bokeronas
 
 **Turning Earth's visual data into an immersive sound experience.**
@@ -8,7 +8,7 @@
 [![Built with](https://img.shields.io/badge/React-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](#technology-stack)
 [![Vite](https://img.shields.io/badge/Vite-Fast%20Development-646CFF?style=for-the-badge&logo=vite&logoColor=white)](#technology-stack)
 
-**Earth Jukebox** is a web application developed by **Space Bokeronas**, a two-member team from Málaga, Spain, during the NASA Space Apps Challenge 2026.
+**Earth Jukebox** is a web application developed by **Space Bokeronas**, a two-member full stack developers team at the NASA Space Apps Challenge 2026.
 
 Inspired by NASA's Earth Information Center (EIC), the project explores how scientific visualisations of our planet can become an alternative way of experiencing Earth science through sound.
 
@@ -16,7 +16,7 @@ Our goal is to make complex Earth science data more accessible, engaging and int
 
 ---
 
-## 🌍 The Concept
+##  The Concept:
 
 What if we could listen to our planet?
 
@@ -28,7 +28,7 @@ The audio tracks are generated from the brightness information of video frames. 
 
 By combining scientific visualisations, video and sonification, Earth Jukebox aims to offer an alternative perspective on phenomena such as ocean temperature anomalies and changes in our planet's systems.
 
-## ✨ Features
+##  Features:
 
 - **NASA video catalogue:** A curated collection of official NASA Earth Information Center visualisations.
 - **Chronological organisation:** Videos are sorted by publication date, with the newest entries displayed first.
@@ -39,7 +39,7 @@ By combining scientific visualisations, video and sonification, Earth Jukebox ai
 - **Audio sonification:** MP4 videos include AAC audio tracks generated from image brightness information.
 - **Curated scientific content:** Video selections, dates and descriptions are reviewed against their official NASA source pages.
 
-## 🛠️ Technology Stack
+## Tech Stack:
 
 | Technology | Purpose |
 |---|---|
@@ -52,7 +52,7 @@ By combining scientific visualisations, video and sonification, Earth Jukebox ai
 | Native Node.js Test Runner | Automated testing |
 | NASA Scientific Visualization Studio | Scientific visualisation sources |
 
-## 🚀 Getting Started
+##  Getting Started:
 
 ### Requirements
 
@@ -117,7 +117,7 @@ To add a new visualisation, review its official NASA page first, then update its
 
 The importer refreshes configured links but does not automatically discover new NASA publications.
 
-## 📁 Project Structure
+## 📁 Project Structure :
 
 ```text
 earth-jukebox/
@@ -146,7 +146,7 @@ earth-jukebox/
 
 Entries are sorted by `publishedAt` in descending order. The `updatedAt` field represents the date of the NASA source page consulted, not the upload date of the video file.
 
-## 🎧 Audio Generation and Testing
+## 🎧 Audio Generation and Testing :
 
 The audio component is generated from video image brightness information.
 
@@ -175,7 +175,7 @@ The audio verification process checks:
 
 Video streams are copied without re-encoding. The media manifest is updated only after all files have been processed successfully.
 
-## 🧪 Testing and Quality Assurance
+## Testing and Quality Assurance :
 
 Run the automated tests:
 
@@ -200,7 +200,7 @@ The native Node.js tests cover:
 
 **Testing note:** HTML fixtures are synthetic test data. They do not replace a live import against NASA's servers.
 
-### Verification Status
+### Verification Status:
 
 | Check | Status |
 |---|---|
@@ -216,7 +216,7 @@ In a subsequent review, dependencies became available, all seven automated tests
 
 Browser playback and a live import remain to be verified.
 
-## 🔬 Technical Considerations
+## Technical considerations:
 
 - Videos are streamed directly from NASA on demand.
 - Thumbnails also require an internet connection.
@@ -226,7 +226,7 @@ Browser playback and a live import remain to be verified.
 - Browser playback of an external video does not automatically grant permission to read its pixels. Future pixel-level processing will require same-origin assets or verified CORS permissions.
 - External web fonts use a sans-serif fallback when unavailable.
 
-## 🌐 NASA Sources and Credits
+##Sources and Credits to NASA  :
 
 The project uses scientific visualisations published by NASA's Scientific Visualization Studio.
 
@@ -241,18 +241,18 @@ The project uses scientific visualisations published by NASA's Scientific Visual
 
 Earth Jukebox is an independent educational and experimental project. It is not an official NASA website, nor is it endorsed by NASA.
 
-## 👩‍💻 The Team
+## 👩‍💻 The Team :
 
 ### Space Bokeronas — Málaga, Spain
 
 Developed during the **NASA Space Apps Challenge 2026**, held in Málaga on 14–15 November 2026.
 
-- **Lavinia** — Software Development | Cybersecurity | AI
-- **Sara Bengoa** — Software Development
+- **Sara Bengoa** — Mid-Full Stack Developer
+- **Lavinia** — https://github.com/codinglavinia- Full Stack Developer | Cybersecurity | AI | Remote sensing and Geospatial Analysis
 
-Two women, one shared passion for technology, science and space exploration.
 
-## 🚀 Our Vision
+
+## Our Vision:
 
 Earth Jukebox is an exploration of how technology can make scientific information more inclusive and engaging.
 
@@ -262,9 +262,7 @@ By connecting data visualisation and sound, we want to encourage people to disco
 
 ---
 
-# 🇪🇸 Versión en español
-
-## 🛰️🌍 Earth Jukebox
+## 🌍🎧🛰️Earth Jukebox🌍🎧🛰️ :
 ### NASA Space Apps Challenge 2026 | Space Bokeronas
 
 **Transformando los datos visuales de la Tierra en una experiencia sonora inmersiva.**
@@ -275,7 +273,7 @@ Inspirado en el Earth Information Center (EIC) de la NASA, el proyecto explora c
 
 Nuestro objetivo es acercar los datos científicos a las personas mediante la combinación de información visual y experiencias sonoras.
 
-## 🌍 El concepto
+## El concepto :
 
 ¿Y si pudiéramos escuchar nuestro planeta?
 
@@ -287,7 +285,7 @@ Las pistas de audio se generan a partir de la información de luminosidad de los
 
 La combinación de visualizaciones científicas, vídeo y sonificación pretende ofrecer una perspectiva diferente sobre fenómenos como las anomalías de temperatura oceánica y los cambios en los sistemas terrestres.
 
-## ✨ Funcionalidades
+## Funcionalidades:
 
 - **Catálogo de vídeos NASA:** colección seleccionada de visualizaciones oficiales del Earth Information Center.
 - **Orden cronológico:** vídeos organizados por fecha de publicación, mostrando primero los más recientes.
@@ -298,7 +296,7 @@ La combinación de visualizaciones científicas, vídeo y sonificación pretende
 - **Sonificación de audio:** vídeos MP4 con pistas AAC generadas a partir de la luminosidad de las imágenes.
 - **Contenido científico seleccionado:** fechas, descripciones y vídeos revisados manualmente en las páginas oficiales.
 
-## 🛠️ Tecnologías utilizadas
+## Tecnologías utilizadas :
 
 | Tecnología | Aplicación |
 |---|---|
@@ -311,14 +309,14 @@ La combinación de visualizaciones científicas, vídeo y sonificación pretende
 | Node.js Test Runner | Pruebas automatizadas |
 | NASA Scientific Visualization Studio | Fuentes de visualizaciones científicas |
 
-## 🚀 Instalación y ejecución
+## Instalación y ejecución :
 
-### Requisitos
+### Requisitos:
 
 - Node.js 22.12 o superior (se recomienda Node.js 24).
 - npm.
 
-### Instalación
+### Instalación:
 
 ```bash
 git clone <YOUR_REPOSITORY_URL>
@@ -398,7 +396,7 @@ El proceso verifica:
 
 Los flujos de vídeo se copian sin recodificación. El manifiesto multimedia solo se actualiza cuando todos los archivos han terminado de procesarse correctamente.
 
-## 🧪 Testing y calidad :
+## QA Testing  :
 
 ```bash
 npm test
@@ -416,7 +414,7 @@ Las pruebas nativas de Node.js cubren:
 
 Las fixtures HTML son datos de prueba sintéticos y no sustituyen una ejecución real contra los servidores de NASA.
 
-### Estado de verificación
+### Estado de verificación:
 
 | Comprobación | Estado |
 |---|---|
@@ -432,7 +430,7 @@ En una revisión posterior, las dependencias estuvieron disponibles, las siete p
 
 La reproducción en navegador y la importación en vivo siguen pendientes de verificación.
 
-## 🔬 Consideraciones técnicas
+## Consideraciones técnicas:
 
 - Los vídeos se reproducen directamente desde NASA bajo demanda.
 - Las miniaturas también requieren conexión a Internet.
@@ -442,7 +440,7 @@ La reproducción en navegador y la importación en vivo siguen pendientes de ver
 - Que un navegador pueda reproducir un vídeo externo no garantiza que permita leer sus píxeles. Para futuras operaciones de procesamiento será necesario utilizar recursos del mismo origen o verificar los permisos CORS.
 - Las fuentes tipográficas externas disponen de una alternativa sans-serif.
 
-## 🌐 Fuentes y créditos
+## Fuentes y créditos:
 
 - [NASA Earth Information Center](https://svs.gsfc.nasa.gov/gallery/earth-information-center/)
 - [El Niño 2026: Sea Surface Temperature Anomaly](https://svs.gsfc.nasa.gov/5688/) — 27 de octubre de 2026.
@@ -458,13 +456,10 @@ Earth Jukebox es un proyecto independiente, educativo y experimental. No es una 
 ### Space Bokeronas — Málaga, España
 
 Desarrollado durante el **NASA Space Apps Challenge 2026**, celebrado en Málaga los días 14 y 15 de noviembre de 2026.
+- **Sara Bengoa** — Mid-Full Stack Developer
+- **Lavinia** — https://github.com/codinglavinia- Full Stack Developer | Cybersecurity | AI | Remote sensing and Geospatial Analysis
 
-- **Lavinia** — Desarrollo de Software | Ciberseguridad | IA
-- **Sara Bengoa** — Desarrollo de Software
-
-Dos mujeres, una pasión compartida por la tecnología, la ciencia y la exploración espacial.
-
-## 🚀 Nuestra visión
+## Nuestra visión:
 
 Earth Jukebox explora cómo la tecnología puede hacer que la información científica sea más accesible, inclusiva y atractiva.
 
@@ -477,7 +472,7 @@ Conectando la visualización de datos y el sonido, queremos invitar a las person
 <p align="center">
   🛰️🌍 <strong>EARTH JUKEBOX</strong> 🌍🛰️
   <br>
-  <em>Listen to the planet. Discover the science. Explore beyond.</em>
+  <em>Listen to the planet. Discover the science. Explore above and beyond.</em>
   <br><br>
   <strong>Space Bokeronas | Málaga, Spain | NASA Space Apps Challenge 2026</strong>
 </p>
