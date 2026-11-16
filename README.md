@@ -15,7 +15,6 @@ Inspired by NASA's Earth Information Center (EIC), the project explores how scie
 Our goal is to make complex Earth science data more accessible, engaging and intuitive by connecting visual information with audio experiences.
 
 ---
-
 ##  The Concept:
 
 What if we could listen to our planet?
@@ -28,6 +27,10 @@ The audio tracks are generated from the brightness information of video frames. 
 
 By combining scientific visualisations, video and sonification, Earth Jukebox aims to offer an alternative perspective on phenomena such as ocean temperature anomalies and changes in our planet's systems.
 
+🎬 Discover Earth Jukebox in action!
+
+Watch our presentation : https://www.youtube.com/watch?v=RZLBzFbL_Os and see how we connect NASA Earth visualisations with sound through data sonification.
+  
 ##  Features:
 
 - **NASA video catalogue:** A curated collection of official NASA Earth Information Center visualisations.
@@ -90,7 +93,7 @@ npm run build
 
 After a successful installation, commit the generated `package-lock.json` to the repository.
 
-## 🛰️ NASA Content Importer
+##  NASA Content Importer
 
 Earth Jukebox includes a Node.js script for refreshing the selected NASA video links.
 
@@ -117,7 +120,7 @@ To add a new visualisation, review its official NASA page first, then update its
 
 The importer refreshes configured links but does not automatically discover new NASA publications.
 
-## 📁 Project Structure :
+## Project Structure :
 
 ```text
 earth-jukebox/
@@ -146,7 +149,7 @@ earth-jukebox/
 
 Entries are sorted by `publishedAt` in descending order. The `updatedAt` field represents the date of the NASA source page consulted, not the upload date of the video file.
 
-## 🎧 Audio Generation and Testing :
+## Audio Generation and Testing :
 
 The audio component is generated from video image brightness information.
 
@@ -241,7 +244,7 @@ The project uses scientific visualisations published by NASA's Scientific Visual
 
 Earth Jukebox is an independent educational and experimental project. It is not an official NASA website, nor is it endorsed by NASA.
 
-## 👩‍💻 The Team :
+## The Team :
 
 ### Space Bokeronas — Málaga, Spain
 
@@ -249,8 +252,6 @@ Developed during the **NASA Space Apps Challenge 2026**, held in Málaga on 14�
 
 - **Sara Bengoa** — Mid-Full Stack Developer
 - **Lavinia** — https://github.com/codinglavinia- Full Stack Developer | Cybersecurity | AI | Remote sensing and Geospatial Analysis
-
-
 
 ## Our Vision:
 
@@ -284,6 +285,9 @@ El proyecto utiliza visualizaciones seleccionadas del Scientific Visualization S
 Las pistas de audio se generan a partir de la información de luminosidad de los fotogramas de vídeo. No son grabaciones de sonidos naturales de la Tierra, sino representaciones sonoras de información visual.
 
 La combinación de visualizaciones científicas, vídeo y sonificación pretende ofrecer una perspectiva diferente sobre fenómenos como las anomalías de temperatura oceánica y los cambios en los sistemas terrestres.
+
+🎬 ¡Descubre Earth Jukebox en funcionamiento!
+Mira nuestra presentación : https://www.youtube.com/watch?v=RZLBzFbL_Os y descubre cómo conectamos las visualizaciones de la Tierra de NASA con la sonificación .
 
 ## Funcionalidades:
 
@@ -360,14 +364,14 @@ Para incorporar una nueva visualización, primero hay que revisar su página ofi
 
 Las fechas y descripciones están seleccionadas y revisadas manualmente. El importador actualiza enlaces, pero no descubre automáticamente las nuevas publicaciones.
 
-## 📁 Estructura de datos :
+## Estructura de datos :
 
 - `public/catalog-recent.json`: catálogo activo de visualizaciones recientes.
 - `public/catalog.json`: catálogo histórico conservado como referencia.
 
 Los vídeos se ordenan por `publishedAt` en orden descendente. El campo `updatedAt` refleja la fecha de consulta de la página NASA, no la fecha de subida del archivo de vídeo.
 
-## 🎧 Generación y validación del audio
+## Generación y validación del sonido:
 
 El audio se genera a partir de la información de luminosidad de las imágenes de los vídeos.
 
@@ -451,7 +455,7 @@ La reproducción en navegador y la importación en vivo siguen pendientes de ver
 
 Earth Jukebox es un proyecto independiente, educativo y experimental. No es una página web oficial de NASA ni cuenta con su respaldo institucional.
 
-## 👩‍💻 El equipo
+## 👩‍💻 El equipo:
 
 ### Space Bokeronas — Málaga, España
 
